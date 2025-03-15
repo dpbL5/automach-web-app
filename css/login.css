@@ -1,0 +1,49 @@
+main {
+    font: var(--Text-BodyMedium);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--Gradient-Background-Main); ;
+}
+
+main h1 {
+    color: var(--Color-Text-Main);
+    padding: 24px 0px;
+}
+
+main form {
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    background-color: var(--Color-Background-Main50);
+    padding: 60px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+main form > *{
+    margin: 8px 0px 0px 0px;
+    color: var(--Color-Text-Main);
+}
+
+main form input {
+    font: var(--Text-BodyMedium);
+    width: 350px;
+    height: 30px;
+    padding: 8px;
+    border-radius: 3px;
+    border: none;
+    color: var(--Color-Text-Main);
+    background-color: var(--Color-Background-Secondary);
+}
+
+main form p {
+    color: var(--Color-Text-Main);
+    font: var(--Text-BodySmall);
+    font-weight: bold;
+}

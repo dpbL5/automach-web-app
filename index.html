@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automach: a Steam-like website</title>
+    <link rel="shortcut icon" href="../resourses/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/store.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/global_styles.css">
+</head>
+<body>
+
+
+    <header>
+        <a href="index.html"><img class="logo" src="resourses/LogoOnHome.png" alt=""></a>
+        <nav class="super-navbar">
+            <a href="index.html">STORE</a>
+            <a href="#">COMMUNITY</a>
+            <a href="#">ABOUT</a>
+            <a href="#">SUPPORT</a>
+        </nav>
+        <div id="global-action">
+            <a href="login.html">Login</a>
+            <a href="signup.html">
+                <button href class="button">Sign Up</button>
+            </a>
+        </div>
+    </header>
+
+    <nav class="sub-navbar">
+        <div class="sub-navbar-left">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+        </div>
+        <input class="searchbar" type="text" placeholder="Search">
+        <div class="sub-navbar-right">
+            <a href="#">Cart</a>
+        </div>
+    </nav>
+
+    <!-- <div class="navbar">
+        <a class="navbar__item navbar__item--active" href="#">Home</a>
+        <a class="navbar__item" href="#">Browse</a>
+        <form action="#">
+            <input class="navbar__searchBar" type="text" placeholder="Search">
+        </form>
+        <div class="navbar-userside">
+            <a class="navbar__item" href="#">Wishlist</a>
+            <a class="navbar__item" href="#">Cart</a>
+        </div>
+    </div> -->
+
+    <div class="main">
+        <label for="">Feature & Recommended</label>
+        <div class="section feature">
+            <a href="#"><img class="chevron"  src="resourses/chevron_left.png" alt="chevron_left"></a>
+            <a href="#"><img class="feature__banner" src="resourses/cs2.jpg" alt=""></a>
+            <div class="feature__description">
+                <h1>Counter Strike 2</h1>
+                <!-- Limit 300 chars -->
+                <p>For over two decades, Counter-Strike has offered an elite competitive 
+                    experience, one shaped by millions of players from across the globe.
+                    And now the next chapter in the CS story is about to begin. This is
+                    Counter-Strike 2.
+                </p>
+                
+                <div class="feature__showcase">
+                    <img src="resourses/sc1.jpg" alt="">
+                    <img src="resourses/sc2.jpg" alt="">
+                </div>
+                <br><br>
+                <div class="price">
+                    Free-to-play
+                </div>
+                <br><br>
+                <div class="supported-platform">
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                        <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+            <a  href="#"><img class="chevron" src="resourses/chevron_right.png" alt="chevron_right"></a>
+        </div>
+        <!-- Free to play games -->
+        <label for="">Free to play games</label>
+        <div class="section section--horizontal-flow">
+            <div class="card">
+                <a class="card" href="storepage.html">
+                    <img class="card__img" src="resourses/pubg-header.jpg" alt="">
+                    <div class="card__title">PUBG:BATTLEGROUNDS</div>
+                    <div class="card__description">
+                        <ul class="platform-list">
+                            <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                            <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                        </ul>
+                        <div class="card__action">
+                            <div id="dim-text">Free</div>
+                            <button class="button button--play">Play now</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card" href="">
+                    <img class="card__img" src="resourses/pubg-header.jpg" alt="">
+                    <div class="card__title">PUBG:BATTLEGROUNDS</div>
+                    <div class="card__description">
+                        <ul class="platform-list">
+                            <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                            <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                        </ul>
+                        <div class="card__action">
+                            <div id="dim-text">Free</div>
+                            <button class="button button--play">Play now</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card" href="">
+                    <img class="card__img" src="resourses/pubg-header.jpg" alt="">
+                    <div class="card__title">PUBG:BATTLEGROUNDS</div>
+                    <div class="card__description">
+                        <ul class="platform-list">
+                            <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                            <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                        </ul>
+                        <div class="card__action">
+                            <div id="dim-text">Free</div>
+                            <button class="button button--play">Play now</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- New & Trending -->
+        <label for="">New & Trending</label>
+        <div class="section section--horizontal-flow">
+            <div class="card">
+                <a class="card" href="">
+                    <img class="card__img" src="resourses/pubg-header.jpg" alt="">
+                    <div class="card__title">PUBG:BATTLEGROUNDS</div>
+                    <div class="card__description">
+                        <ul class="platform-list">
+                            <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                            <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                        </ul>
+                        <div class="card__action">
+                            <div id="dim-text">Free</div>
+                            <button class="button button--play">Play now</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a class="card" href="">
+                    <img class="card__img" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3419430/header.jpg?t=1741339647" alt="">
+                    <div class="card__title">Bongo Cat</div>
+                    <div class="card__description">
+                        <ul class="platform-list">
+                            <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                            <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                        </ul>
+                        <div class="card__action">
+                            <div id="dim-text">Free</div>
+                            <button class="button button--play">Play now</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a class="card" href="">
+                    <img class="card__img" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2139460/header.jpg?t=1737448314" alt="">
+                    <div class="card__title">Once Human</div>
+                    <div class="card__description">
+                        <ul class="platform-list">
+                            <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                            <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                        </ul>
+                        <div class="card__action">
+                            <div id="dim-text">Free</div>
+                            <button class="button button--play">Play now</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+
+        <!-- Horizontal line -->
+        <label for="">Top Selling</label>
+        <div class="section section--vertical-flow">
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <label for="">Upcoming</label>
+        <div class="section section--vertical-flow">
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a class="card--horizontal" href="#">
+                    <img class="card--horizontal__img" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="card__title">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                    </ul>
+                    <div class="card__action">
+                        <div class="card__price">
+                            $19.99
+                        </div>
+                        <button class="button button--primary">
+                            Add to cart
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer__connection">
+            <a href="index.html"><img class="logo" src="resourses/LogoOnHome.png" alt=""></a>
+            <a href="https://www.Facebook.com">Facebook</a>
+            <a href="https://www.X.com">X (Twitter)</a>
+        </div>
+        <div class="footer__info">
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+        </div>
+    </footer>
+</body>
+</html>

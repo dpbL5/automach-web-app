@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="shortcut icon" href="resourses/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/global_styles.css">
+    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html"><img class="logo" src="resourses/LogoOnHome.png" alt=""></a>
+        <nav class="super-navbar">
+            <a href="#">STORE</a>
+            <a href="#">COMMUNITY</a>
+            <a href="#">ABOUT</a>
+            <a href="#">SUPPORT</a>
+        </nav>
+        <div id="global-action">
+            <a href="login.html">Login</a>
+            <a href="signup.html">
+                <button href class="button">Sign Up</button>
+            </a>
+        </div>
+    </header>
+
+    <!-- <nav class="sub-navbar">
+        <div class="sub-navbar-left">
+            <a href="#">Home</a>
+            <a href="#">Browse</a>
+        </div>
+        <input class="searchbar" type="text" placeholder="Search">
+        <div class="sub-navbar-right">
+            <a href="#">Wishlist</a>
+            <a href="#">Cart</a>
+        </div>
+    </nav> -->
+
+    <main>
+        <h1>Create an account</h1>
+        <form action="submit">
+            <p style="color: var(--Color-Primary);">USERNAME</p>
+            <input type="text" required>
+            <p>EMAIL</p>
+            <input type="email" required>
+            <p>PASSWORD</p>
+            <input type="password" required>
+            <p>CONFIRM PASSWORD</p>
+            <input type="password" required>
+            <div class="role-container">
+                <p>ROLE</p>
+                <div class="role">
+                    <input type="radio" name="role" value="Standard user" required>
+                    <label for="buyer">Standard user</label>
+                    <input type="radio" name="role" value="Developer" required>
+                    <label for="seller">Developer</label>
+                </div>
+            </div>
+            <button style="width: 200px;" class="button button--action">
+                Continue
+            </button>
+        </form>
+    </main>
+
+    <footer>
+        <div class="footer__connection">
+            <a href="index.html"><img class="logo" src="resourses/LogoOnHome.png" alt=""></a>
+            <a href="https://www.Facebook.com">Facebook</a>
+            <a href="https://www.X.com">X (Twitter)</a>
+        </div>
+        <div class="footer__info">
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+        </div>
+    </footer>
+</body>
+</html>

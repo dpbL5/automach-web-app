@@ -1,0 +1,48 @@
+main {
+    height: 100vh;
+    background: var(--Gradient-Background-System);
+    display: flex;
+    flex-direction: column;
+    padding-block: 50px;
+    padding-inline: 450px;
+}
+
+main h1{
+    font: var(--Text-HeadingLarge);
+    color: var(--Color-Text-Main);
+    font-weight: 200;
+}
+
+main form {
+    padding: 24px 0px 24px 0px;
+}
+
+main form > *{
+    color: var(--Color-Text-Main);
+}
+
+form [type="text"],
+[type="password"],
+[type="email"] {
+    height: 36px;
+    width: 300px;
+    background-color: var(--Color-Background-System);
+    border: none;
+    font: var(--Text-BodyMedium);
+}
+
+label {
+    font: var(--Text-BodySmall);
+    font-weight: bold;
+}
+
+main form p {
+    margin: 24px 0px 0px 0px;
+    color: var(--Color-Text-Main);
+    font: var(--Text-BodySmall);
+    font-weight: bold;
+}
+
+.role-container {
+    margin: 12px 0px 24px 0px;
+}

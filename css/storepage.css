@@ -1,0 +1,124 @@
+label {
+    font: var(--Text-HeadingMedium);
+    font-weight: 700;
+    color: var(--Color-Text-Main);
+    grid-area: label;
+    padding: 24px 0px;
+    /* background-color: var(--Color-Background-Main50); */
+}
+
+main {
+    background: linear-gradient(180deg, var(--Color-Background-Main) 0, #202B3C 40%);
+    display: grid;
+    height: max-content;
+    grid-template-rows: 50px 2fr 0.5fr 3fr;
+    grid-template-areas:
+    "label" 
+    "intro"
+    "interaction"
+    "game-info";
+    padding-inline: 300px;
+}
+
+main > * {
+    border-radius: 3px;
+    /* padding: 24px 0px; */
+}
+.intro-container {
+    grid-area: intro;
+    display: grid;
+    grid-template-areas: "view description";
+    padding: 24px 0px;
+    background-color: var(--Color-Background-Main50);
+}
+
+.intro-container .intro__description {
+    grid-area: description;
+    padding: 0px 24px;
+    color: var(--Color-Text-Main);
+    font: var(--Text-BodySmall);
+}
+
+.intro-container .intro__description img {
+    width: 300px;
+    object-fit: cover;
+}
+
+.viewer {
+    grid-area: view;
+}
+
+.viewer img {
+    width: 600px;
+    object-fit: cover;
+}
+
+.viewer__list {
+    display: flex;
+    gap: 3px;
+    overflow-x: scroll;
+    width: 600px;
+}
+
+.viewer__list img {
+    object-fit: cover;
+    width: 128px;
+    height: 72px;
+}
+
+.game-info {
+    grid-area: game-info;
+    padding: 12px 24px;
+    background-color: var(--Color-Background-Main50);
+}
+
+
+.game-info > * {
+    color: var(--Color-Text-Main);
+    font-family: "Motiva Sans", sans-serif;
+}
+
+.game-info > h3,
+.game-info > h4 {
+    color: var(--Color-Primary);
+}
+
+.game-info > pre {
+    font: var(--Text-BodySmall);
+}
+
+.interaction {
+    grid-area: interaction;
+    border-radius: 3px;
+    margin: 24px 0px;
+    padding: 12px;
+    background-color: var(--Color-Background-Main50);
+
+    display: grid;
+    grid-template-areas: "title platform button";
+    grid-template-columns: 2fr 150px 1fr;
+    align-items: center;
+}
+
+.interaction .title {
+    grid-area: title;
+    font: var(--Text-BodyMedium);
+    color: var(--Color-Text-Main);
+}
+
+.interaction .info-group {
+    grid-area: button;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-group p {
+    font: var(--Text-BodySmall);
+    color: var(--Color-Text-Dim);
+}
+
+.interaction .platform-list {
+    grid-area: platform;
+}
