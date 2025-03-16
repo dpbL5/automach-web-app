@@ -57,8 +57,8 @@
 }
 
 .tag {
-    color: var(--Color-Text-Main);
-    background-color: var(--Color-Secondary);
+    color: var(--Color-Text-Dim);
+    background-color: var(--Color-Background-Highlight);
     font: var(--Text-BodySmall);
     border-radius: 3px;
     padding: 3px 6px;
@@ -79,7 +79,32 @@
     overflow: scroll;
 }
 
+
+.tag.menuitem {
+    color: var(--Color-Text-Main);
+    background-color: var(--Color-Background-Hover);
+}
+
 .tag.menuitem:hover {
+    background-color: var(--Color-Background-Highlight);
+    cursor: pointer;
+}
+
+.pagination {
+    grid-area: pagination;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.pagination > * {
+    text-decoration: none;
+    background-color: var(--Color-Background-Main50);
+    border-radius: 3px;
+    padding: 8px 16px;
+}
+
+.pagination > *:hover {
     background-color: var(--Color-Background-Hover);
     cursor: pointer;
 }

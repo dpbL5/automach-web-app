@@ -11,7 +11,7 @@ h1 {
 
 main {
     background: var(--Color-Background-Secondary);
-    height: 100vh;
+    height: max-content;
 }
 
 .browser-wrapper {
@@ -49,14 +49,18 @@ main {
 }
 
 .results {
+    display: flex;
+    flex-direction: column;
     grid-area: results;
-    /* padding: 1rem; */
+    overflow: scroll;
+    gap: 12px;
+    height: calc(135px * 5);
 }
 
 .item {
     background-color: var(--Color-Background-Main50);
     border-radius: 3px;
-    padding: 12px;
+    padding: 10px;
     display: grid;
     grid-template-areas: 
     "img title title"
@@ -64,9 +68,38 @@ main {
     "img description cta";
     grid-template-columns: auto 1fr 1fr;
     text-decoration: none;
+    gap: 4px;
 }
 
-.item img {
+.item .himg {
     grid-area: img;
     height: 100px;
+    width: 177.8px;
+    object-fit: cover;
+}
+
+.item h3 {
+    grid-area: title;
+    font: var(--Text-BodyLarge);
+}
+
+.item .tag {
+    grid-area: tags;
+}
+
+.item .cta {
+    grid-area: cta;
+    justify-self: end;
+}
+
+.item .price {
+    grid-area: cta;
+    font: var(--Text-BodyMedium);
+    align-self: center;
+    display: flex;
+    position: relative;
+}
+
+.platform-list {
+    grid-area: description;
 }
