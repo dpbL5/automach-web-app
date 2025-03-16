@@ -34,9 +34,13 @@ main {
 }
 
 .grouping {
+    padding: 3px 8px;
     grid-area: group;
     display: flex;
     height: 45px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
 }
 
 .filter {
@@ -46,5 +50,23 @@ main {
 
 .results {
     grid-area: results;
-    padding: 1rem;
+    /* padding: 1rem; */
+}
+
+.item {
+    background-color: var(--Color-Background-Main50);
+    border-radius: 3px;
+    padding: 12px;
+    display: grid;
+    grid-template-areas: 
+    "img title title"
+    "img tags tags"
+    "img description cta";
+    grid-template-columns: auto 1fr 1fr;
+    text-decoration: none;
+}
+
+.item img {
+    grid-area: img;
+    height: 100px;
 }
