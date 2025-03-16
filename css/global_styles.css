@@ -67,9 +67,10 @@ header nav a{
     padding: 0px 12px;
 }
 
-header nav a .super-navbar-active {
+header nav .super-navbar-active {
     text-decoration: underline;
     text-decoration-line: 2px;
+    color: var(--Color-Primary);
 }
 
 header nav a:hover{
@@ -194,9 +195,6 @@ footer .footer__info {
     grid-area: info;
 }
 
-/* .price { */
-/* } */
-
 .platform-list {
     list-style: none;
     display: flex;
@@ -206,5 +204,5 @@ footer .footer__info {
 .platform-list img {
     justify-content: center;
     padding: 4px;
-    width: 16px;
+    width: 20px;
 }

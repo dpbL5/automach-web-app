@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="css/global_styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+    
+    <header>
+        <a href="index.html"><img class="logo" src="resourses/LogoOnHome.png" alt=""></a>
+        <nav class="super-navbar">
+            <a href="#">STORE</a>
+            <a href="#">COMMUNITY</a>
+            <a href="#">ABOUT</a>
+            <a href="#">SUPPORT</a>
+        </nav>
+        <div id="global-action">
+            <a href="login.html">Login</a>
+            <a href="signup.html">
+                <button href class="button">Sign Up</button>
+            </a>
+        </div>
+    </header>
+
+    <nav class="sub-navbar">
+        <div class="sub-navbar-left">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+        </div>
+        <input class="searchbar" type="text" placeholder="Search">
+        <div class="sub-navbar-right">
+            <a class="item-active" href="cart.html">Cart</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="cart-container">
+            <h1>Your Cart</h1>
+            <div class="cart-items">
+                <!-- Items Start -->
+                <div class="cart-item">
+                    <img class="thumbnail" src="resourses/pubg-header.jpg" alt="">
+                    <a href="storepage.html"><div class="name">PUBG: BATTLEGROUNDS</div></a>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                        <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                    </ul>
+                    <div class="price">
+                        $18.99
+                    </div>
+                    <button class="button">Remove</button>
+                </div>
+
+                <div class="cart-item">
+                    <img class="thumbnail" src="https://sm.ign.com/t/ign_pk/review/b/balatro-re/balatro-review_cuqe.2560.jpg" alt="">
+                    <div class="name">Balatro</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                        <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                    </ul>
+                    <div class="price">
+                        $19.99
+                    </div>
+                    <button class="button">Remove</button>
+                </div>
+
+                <div class="cart-item">
+                    <img class="thumbnail" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2139460/header.jpg?t=1737448314" alt="">
+                    <div class="name">Once Human</div>
+                    <ul class="platform-list">
+                        <li><img src="resourses/icon/iconwin0.5.png" alt=""></li>
+                        <li><img src="resourses/icon/iconlinux0.5.png" alt=""></li>
+                    </ul>
+                    <div class="price">
+                        $59.99
+                    </div>
+                    <button class="button">Remove</button>
+                </div>
+            </div>
+            <div class="cart-summary">
+                <div id="text">Estimated total:</div>
+                <div id="text" class="price-total">$98.97</div>
+                <button class="button button--action">Purschase</button>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="footer__connection">
+            <a href="index.html"><img class="logo" src="resourses/LogoOnHome.png" alt=""></a>
+            <a href="https://www.Facebook.com">Facebook</a>
+            <a href="https://www.X.com">X (Twitter)</a>
+        </div>
+        <div class="footer__info">
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+        </div>
+    </footer>
+</body>
+</html>
