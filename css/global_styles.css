@@ -26,6 +26,7 @@
     --Color-Accent-Green: #a1cd44;
     --Color-Accent-Green-Highlight: #b9eb4e;
     --Color-Accent-Red: #cd5444;
+    --Color-Accent-Red-Hover: #f52409;
     --Color-Accent-Yellow: #c1b15f;
     --Color-Background-System: #3D4450;
     
@@ -33,6 +34,10 @@
     --Gradient-Button-Action: linear-gradient(270deg, #00BBFF 0%, #1A9FFF 100%);
     --Gradient-Background-Main: linear-gradient(90deg, var(--Color-Background-Tertiary) 0%, var(--Color-Background-Secondary) 100%);
     --Gradient-Background-System: radial-gradient(farthest-corner at 40px 40px,#3D4450 0%, #23262E 80%);
+    
+    /* Shadows */
+    --ShadowLight: 0px 10px 50px 10px rgba(0, 0, 0, 20%);
+    --ShadowHeavy: 0px 10px 50px 10px rgba(0, 0, 0, 40%);
 }
 
 @font-face {

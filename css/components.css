@@ -56,6 +56,14 @@
     color: var(--Color-Text-Main);
 }
 
+.button--remove {
+    background-color: var(--Color-Accent-Red);
+}
+
+.button--remove:hover {
+    background-color: var(--Color-Accent-Red-Hover);
+}
+
 .tag {
     color: var(--Color-Text-Dim);
     background-color: var(--Color-Background-Highlight);
