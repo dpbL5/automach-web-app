@@ -26,8 +26,7 @@
     --BodyNormal: normal 400 12px/1.4 "Motiva Sans", Arial, sans-serif;
     --BodyLarge: normal 400 14px/1.4 "Motiva Sans", Arial, sans-serif;
 
-    --ShadowLight: 0px 10px 50px 10px rgba(0, 0, 0, 20%);
-    --ShadowHeavy: 0px 10px 50px 10px rgba(0, 0, 0, 40%);
+
 }
 
 @font-face {

@@ -1,0 +1,270 @@
+:root {
+  /* Fonts */
+  --Text-HeadingLarge: normal 700 26px/1.4 "Noto Sans", sans-serif;
+  --Text-HeadingMedium: normal 700 22px/1.4 "Noto Sans", sans-serif;
+  --Text-HeadingSmall: normal 700 18px/1.4 "Noto Sans", sans-serif;
+  --Text-BodyLarge: normal 400 16px/1.4 "Noto Sans", sans-serif;
+  --Text-BodyMedium: normal 400 14px/1.4 "Noto Sans", sans-serif;
+  --Text-BodySmall: normal 400 12px/1.4 "Noto Sans", sans-serif;
+
+  /* Gap */
+  --Gap-Small: 6px;
+  --Gap-Medium: 12px;
+  --Gap-Large: 24px;
+
+  /* Colors */
+  --Color-Text-Main: #f3f3f3;
+  --Color-Text-Dim: #76808c;
+  --Color-Primary: #66c0f4;
+  --Color-Secondary: #4b619b;
+  --Color-Background-Main: #0e141b;
+  --Color-Background-Main50: rgba(14, 20, 27, 50%);
+  --Color-Background-Main20: rgba(14, 20, 27, 20%);
+  --Color-Background-Highlight: #1e2329;
+  --Color-Background-Hover: #313843;
+  --Color-Background-Secondary: #14344b;
+  --Color-Background-Tertiary: #212b45;
+  --Color-Accent-Green: #a1cd44;
+  --Color-Accent-Green-Highlight: #b9eb4e;
+  --Color-Accent-Red: #cd5444;
+  --Color-Accent-Red-Hover: #f52409;
+  --Color-Accent-Yellow: #c1b15f;
+  --Color-Background-System: #3d4450;
+
+  /* Gradients */
+  --Gradient-Button-Action: linear-gradient(270deg, #00bbff 0%, #1a9fff 100%);
+  --Gradient-Background-Main: linear-gradient(
+    90deg,
+    var(--Color-Background-Tertiary) 0%,
+    var(--Color-Background-Secondary) 100%
+  );
+  --Gradient-Background-System: radial-gradient(
+    farthest-corner at 40px 40px,
+    #3d4450 0%,
+    #23262e 80%
+  );
+
+  /* Shadows */
+  --ShadowLight: 0px 10px 50px 10px rgba(0, 0, 0, 20%);
+  --ShadowHeavy: 0px 10px 50px 10px rgba(0, 0, 0, 40%);
+}
+
+@font-face {
+  font-family: "Noto Sans", sans-serif;
+  src: url(../fonts/NotoSans.ttf), format("truetype");
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+html {
+  background-image: var(--Gradient-Background-Main);
+}
+
+.header {
+  height: 60px;
+  display: flex;
+  background-color: var(--Color-Background-Main);
+  align-items: center;
+  padding: 0px 100px;
+}
+
+.header:first-child {
+  padding-right: 50px;
+}
+
+.nav {
+  display: flex;
+  width: calc(100% - 200px);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav__item {
+  font: var(--Text-BodyLarge);
+  color: var(--Color-Text-Main);
+  font-weight: 700;
+}
+
+.nav__item a {
+  text-decoration: none;
+  color: var(--Color-Text-Main);
+}
+
+.nav__item a:hover,
+.nav__item.active a {
+  text-decoration: none;
+  color: var(--Color-Primary);
+}
+
+.logo {
+  height: 16px;
+}
+
+.nav--sub {
+  height: 50px;
+  background-color: var(--Color-Background-Tertiary);
+  padding: 0px 100px;
+}
+
+.nav--sub__item {
+  font: var(--Text-BodyMedium);
+  color: var(--Color-Text-Main);
+  font-weight: 700;
+  padding: 12px;
+}
+
+.nav--sub__item a {
+  text-decoration: none;
+  color: var(--Color-Text-Main);
+}
+
+.nav--sub__item.active a,
+.nav--sub__item a:hover {
+  background-color: var(--Color-Secondary);
+  border-radius: 3px;
+}
+
+/* Banner */
+
+.main-banner {
+  background: url(../images/index-banner.png) no-repeat center;
+  background-clip: padding-box;
+  padding: 200px;
+  background-size: cover;
+}
+
+.main-banner h1 {
+  color: var(--Color-Text-Main);
+  font-family: "Noto Sans", sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+}
+
+.button {
+  color: var(--Color-Text-Main);
+  background-color: var(--Color-Background-Highlight);
+  font: var(--Text-BodyMedium);
+  border-radius: 3px;
+  border: none;
+  padding: 12px 24px;
+}
+
+.button:hover {
+  color: var(--Color-Text-Main);
+  background-color: var(--Color-Background-Hover);
+  cursor: pointer;
+}
+
+.button--primary {
+  background: var(--Color-Secondary);
+}
+
+.button--primary:hover {
+  color: var(--Color-Background-Main);
+  background: var(--Color-Primary);
+  cursor: pointer;
+}
+
+.button--action {
+  background: var(--Gradient-Button-Action);
+  font-weight: 700;
+}
+
+.button--action:hover {
+  background: var(--Color-Primary);
+  cursor: pointer;
+}
+
+.button--play {
+  background-color: var(--Color-Accent-Green);
+  color: var(--Color-Background-Main);
+  font-weight: 700;
+}
+
+.button--play:hover {
+  background: var(--Color-Accent-Green-Highlight);
+  color: var(--Color-Background-Main);
+}
+
+.button--grouping {
+  padding: 8px 16px;
+  background: none;
+  color: var(--Color-Text-Main);
+  font-weight: 300;
+}
+
+.button--grouping:hover,
+.button--grouping.active {
+  background: var(--Color-Background-Hover);
+  color: var(--Color-Text-Main);
+}
+
+.button--remove {
+  background-color: var(--Color-Accent-Red);
+}
+
+.button--remove:hover {
+  background-color: var(--Color-Accent-Red-Hover);
+}
+
+.tag {
+  color: var(--Color-Text-Dim);
+  background-color: var(--Color-Background-Highlight);
+  font: var(--Text-BodySmall);
+  border-radius: 3px;
+  padding: 3px 6px;
+  margin: 3px;
+}
+
+.tags {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.tags.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 3px;
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.tag.menuitem {
+  color: var(--Color-Text-Main);
+  background-color: var(--Color-Background-Hover);
+}
+
+.tag.menuitem:hover {
+  background-color: var(--Color-Background-Highlight);
+  cursor: pointer;
+}
+
+.pagination {
+  grid-area: pagination;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pagination > * {
+  text-decoration: none;
+  background-color: var(--Color-Background-Main50);
+  border-radius: 3px;
+  padding: 8px 16px;
+}
+
+.pagination > *:hover {
+  background-color: var(--Color-Background-Hover);
+  cursor: pointer;
+}
