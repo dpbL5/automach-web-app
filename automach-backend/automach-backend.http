@@ -1,0 +1,10 @@
+@automach_backend_HostAddress = http://localhost:5174
+
+GET {{automach_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+POST {{automach_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+GET http://localhost:5174
+###

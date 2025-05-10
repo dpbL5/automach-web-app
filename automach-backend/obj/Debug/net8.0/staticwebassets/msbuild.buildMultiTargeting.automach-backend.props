@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\automach-backend.props" />
+</Project>

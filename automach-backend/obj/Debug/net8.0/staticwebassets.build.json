@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "MlxsnMUlmFzYwFHFAGBEZc1tWRTPHmWEelQtJQz3l8Q=",
+  "Source": "automach-backend",
+  "BasePath": "_content/automach-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
