@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1ea4W+dFQ/Q=",
+  "dgSpecHash": "hDHsuusSeIc=",
   "success": true,
-  "projectFilePath": "D:\\_Projects\\Web\\AutoMach\\automach-backend\\automach-backend.csproj",
+  "projectFilePath": "D:\\_Projects\\web-dev_automach\\automach-backend\\automach-backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\siviz\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.15\\microsoft.aspnetcore.openapi.8.0.15.nupkg.sha512",
     "C:\\Users\\siviz\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

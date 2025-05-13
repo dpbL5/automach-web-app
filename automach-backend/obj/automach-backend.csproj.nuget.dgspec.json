@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_Projects\\Web\\AutoMach\\automach-backend\\automach-backend.csproj": {}
+    "D:\\_Projects\\web-dev_automach\\automach-backend\\automach-backend.csproj": {}
   },
   "projects": {
-    "D:\\_Projects\\Web\\AutoMach\\automach-backend\\automach-backend.csproj": {
+    "D:\\_Projects\\web-dev_automach\\automach-backend\\automach-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_Projects\\Web\\AutoMach\\automach-backend\\automach-backend.csproj",
+        "projectUniqueName": "D:\\_Projects\\web-dev_automach\\automach-backend\\automach-backend.csproj",
         "projectName": "automach-backend",
-        "projectPath": "D:\\_Projects\\Web\\AutoMach\\automach-backend\\automach-backend.csproj",
+        "projectPath": "D:\\_Projects\\web-dev_automach\\automach-backend\\automach-backend.csproj",
         "packagesPath": "C:\\Users\\siviz\\.nuget\\packages\\",
-        "outputPath": "D:\\_Projects\\Web\\AutoMach\\automach-backend\\obj\\",
+        "outputPath": "D:\\_Projects\\web-dev_automach\\automach-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\siviz\\AppData\\Roaming\\NuGet\\NuGet.Config"
