@@ -62,7 +62,7 @@ namespace automach_backend.Data
 
             // Config cho Review
             modelBuilder.Entity<Review>()
-                .HasKey(r => new { r.GameId, r.AccountId });
+                .HasKey(r => new { r.GameId, r.AccountId, r.Id });
             modelBuilder.Entity<Review>()
                 .HasOne(g => g.Game)
                 .WithMany(r => r.Reviews)
@@ -79,6 +79,34 @@ namespace automach_backend.Data
                 .HasOne(a => a.Account)
                 .WithMany(t => t.Transactions)
                 .HasForeignKey(a => a.AccountId);
+
+
+            // Seed data
+            // modelBuilder.Entity<Tag>().HasData(
+            //     new Tag { Id = 1, Title = "Action" },
+            //     new Tag { Id = 2, Title = "Adventure" },
+            //     new Tag { Id = 4, Title = "Strategy" },
+            //     new Tag { Id = 5, Title = "Simulation" },
+            //     new Tag { Id = 3, Title = "RPG" }
+            // );
+            // modelBuilder.Entity<Game>().HasData(
+            //     new Game { Id = 1, Title = "Counter-Strike 2", Price = 0.0f },
+            //     new Game { Id = 2, Title = "Elden Ring", Price = 59.99f }
+            // );
+
+            // modelBuilder.Entity<Account>().HasData(
+            //     new Account
+            //     {
+            //         Id = 1,
+            //         Username = "admin",
+            //         Password = "123456",
+            //         Email = "admin@automach.com",
+            //         PhoneNumber = "0123456789",
+            //         Name = "Admin",
+            //         CreatedAt = DateTime.Today,
+            //         Role = "admin"
+            //     }
+            // );
         }
     }
 }

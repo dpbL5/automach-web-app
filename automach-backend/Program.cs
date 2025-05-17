@@ -1,8 +1,13 @@
 using automach_backend.Data;
 using Microsoft.EntityFrameworkCore;
 
+using automach_backend.Interfaces;
+using automach_backend.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); // Swagger for API documentation
@@ -19,6 +24,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.MapControllers();
 app.Run();
 

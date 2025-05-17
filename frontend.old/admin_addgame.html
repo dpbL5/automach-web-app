@@ -1,122 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Publish a Game</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="css/global_styles.css">
-    <link rel="stylesheet" href="css/components.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/global_styles.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  </head>
+  <body>
     <div class="container">
-        <a href="admin_dashboard.html">Back</a>
+      <a href="admin_dashboard.html">Back</a>
 
-        <br>
-        <br>
+      <br />
+      <br />
 
-        <h1>Publish a game</h1>
+      <h1>Publish a game</h1>
 
-        <!-- Game Name and Banner Section -->
-        <div class="section">
-            <label for="game-name">NAME</label>
-            <input type="text" id="game-name" value="PUBG: BATTLEGROUNDS" readonly>
+      <!-- Game Name and Banner Section -->
+      <div class="section">
+        <label for="game-name">NAME</label>
+        <input
+          type="text"
+          id="game-name"
+          value="PUBG: BATTLEGROUNDS"
+          readonly
+        />
 
-            <label for="banner">BANNER (1 banner only)</label>
-            <div class="upload-box">
-                <span>banner.png</span>
-                <button class="upload-btn">Upload</button>
-            </div>
+        <label for="banner">BANNER (1 banner only)</label>
+        <div class="upload-box">
+          <span>banner.png</span>
+          <button class="upload-btn">Upload</button>
         </div>
+      </div>
 
-        <!-- Showcase Images Section -->
-        <div class="section">
-            <label>SHOWCASE</label>
-            <div class="showcase-grid">
-                <div class="showcase-item"></div>
-                <div class="showcase-item"></div>
-                <div class="showcase-item"></div>
-                <div class="showcase-item"></div>
-            </div>
+      <!-- Showcase Images Section -->
+      <div class="section">
+        <label>SHOWCASE</label>
+        <div class="showcase-grid">
+          <div class="showcase-item"></div>
+          <div class="showcase-item"></div>
+          <div class="showcase-item"></div>
+          <div class="showcase-item"></div>
         </div>
+      </div>
 
-        <!-- Release Date and Price Section -->
-        <div class="section inline-section">
-            <div>
-                <label for="release-date">RELEASE DATE</label>
-                <input type="text" id="release-date" placeholder="">
-            </div>
-            <div>
-                <label for="price">PRICE</label>
-                <input type="text" id="price" placeholder="">
-            </div>
+      <!-- Release Date and Price Section -->
+      <div class="section inline-section">
+        <div>
+          <label for="release-date">RELEASE DATE</label>
+          <input type="text" id="release-date" placeholder="" />
         </div>
-
-        <!-- About This Game Section with Toolbar -->
-        <div class="section">
-            <label>ABOUT THIS GAME</label>
-            <div class="editor-toolbar">
-                <button onclick="formatText('bold')"><b>B</b></button>
-                <button onclick="formatText('italic')"><i>I</i></button>
-                <button onclick="formatText('underline')"><u>U</u></button>
-                <select onchange="formatText('fontSize', this.value)">
-                    <option value="">Font Size</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-                <button onclick="formatText('justifyLeft')">Left</button>
-                <button onclick="formatText('justifyCenter')">Center</button>
-                <button onclick="formatText('justifyRight')">Right</button>
-            </div>
-            <div contenteditable="true" id="game-description" class="editor">
-LAND, LOOT, SURVIVE!
-Play PUBG: BATTLEGROUNDS for free.
-Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds.
-Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.
-This content download will also provide access to the BATTLEGROUNDS TEST SERVER, which requires a separate download to play.
-Optional in-game purchases available.
-            </div>
+        <div>
+          <label for="price">PRICE</label>
+          <input type="text" id="price" placeholder="" />
         </div>
+      </div>
 
-        <!-- Tag Selection Section -->
-        <!-- Tag Selection Section -->
-        <div class="section">
-            <label>TAGS</label>
-            <div class="tags">
-                <button class="button">Action</button>
-                <button class="button">Adventure</button>
-                <button class="button">RPG</button>
-                <button class="button">Shooter</button>
-                <button class="button">Multiplayer</button>
-                <button class="button">Survival</button>
-                <button class="button">Battle Royale</button>
-            </div>
+      <!-- About This Game Section with Toolbar -->
+      <div class="section">
+        <label>ABOUT THIS GAME</label>
+        <div class="editor-toolbar">
+          <button onclick="formatText('bold')"><b>B</b></button>
+          <button onclick="formatText('italic')"><i>I</i></button>
+          <button onclick="formatText('underline')"><u>U</u></button>
+          <select onchange="formatText('fontSize', this.value)">
+            <option value="">Font Size</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+          <button onclick="formatText('justifyLeft')">Left</button>
+          <button onclick="formatText('justifyCenter')">Center</button>
+          <button onclick="formatText('justifyRight')">Right</button>
         </div>
-
-        <!-- Game Setup Section -->
-        <div class="section">
-            <label for="game-setup">GAME SETUP</label>
-            <div class="upload-box">
-                <span>setup.exe</span>
-                <button class="upload-btn">Upload</button>
-            </div>
+        <div contenteditable="true" id="game-description" class="editor">
+          LAND, LOOT, SURVIVE! Play PUBG: BATTLEGROUNDS for free. Land on
+          strategic locations, loot weapons and supplies, and survive to become
+          the last team standing across various, diverse Battlegrounds. Squad up
+          and join the Battlegrounds for the original Battle Royale experience
+          that only PUBG: BATTLEGROUNDS can offer. This content download will
+          also provide access to the BATTLEGROUNDS TEST SERVER, which requires a
+          separate download to play. Optional in-game purchases available.
         </div>
+      </div>
 
-        <!-- Publish Button -->
-        <button class="publish-btn">PUBLISH</button>
+      <!-- Tag Selection Section -->
+      <!-- Tag Selection Section -->
+      <div class="section">
+        <label>TAGS</label>
+        <div class="tags">
+          <button class="button">Action</button>
+          <button class="button">Adventure</button>
+          <button class="button">RPG</button>
+          <button class="button">Shooter</button>
+          <button class="button">Multiplayer</button>
+          <button class="button">Survival</button>
+          <button class="button">Battle Royale</button>
+        </div>
+      </div>
+
+      <!-- Game Setup Section -->
+      <div class="section">
+        <label for="game-setup">GAME SETUP</label>
+        <div class="upload-box">
+          <span>setup.exe</span>
+          <button class="upload-btn">Upload</button>
+        </div>
+      </div>
+
+      <!-- Publish Button -->
+      <button class="publish-btn">PUBLISH</button>
     </div>
 
     <script>
-        function formatText(command, value = null) {
-            const editor = document.getElementById('game-description');
-            editor.focus();
-            document.execCommand(command, false, value);
-        }
+      function formatText(command, value = null) {
+        const editor = document.getElementById("game-description");
+        editor.focus();
+        document.execCommand(command, false, value);
+      }
     </script>
-</body>
+  </body>
 </html>
