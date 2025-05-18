@@ -6,8 +6,9 @@ using automach_backend.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IAccountRepository, AccountRepository>(); // Dependency injection for AccountRepository
-
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

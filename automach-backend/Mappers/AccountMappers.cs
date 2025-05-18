@@ -16,7 +16,7 @@ namespace automach_backend.Mappers
                 Username = account.Username,
                 Password = account.Password,
                 CreatedAt = account.CreatedAt,
-                Role = account.Role
+                // Role = account.Role
             };
         }
 
