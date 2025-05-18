@@ -4,11 +4,11 @@ namespace automach_backend.Models
     {
         public int Id { get; set; }
         public int AccountId { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string PaymentMethod { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string PaymentMethod { get; set; } = string.Empty; // e.g. "Credit Card", "PayPal", etc.
         public float TotalPrice { get; set; }
         
-        public Account Account { get; set; }
-        public ICollection<TransactionItem> TransactionItems { get; set; } // Phuc vu xem chi tiet giao dich
+        public Account Account { get; set; } = new Account(); 
+        public ICollection<TransactionItem>? TransactionItems { get; set; }
     }
 }

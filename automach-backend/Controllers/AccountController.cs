@@ -1,54 +1,69 @@
-using automach_backend.Interfaces;
-using automach_backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using automach_backend.Mappers;
+using automach_backend.Dto.Account;
+using automach_backend.Interfaces;
 
 namespace automach_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
-        private readonly IAccountRepository accountRepository;
-        public AccountController(IAccountRepository accountRepository)
+        private readonly IAccountRepository accountRepo;
+        public AccountController(IAccountRepository accountRepo)
         {
-            this.accountRepository = accountRepository;
+            this.accountRepo = accountRepo;
         }
-
+        
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Account>))]
-        public IActionResult GetAccounts()
+        public async Task<IActionResult> GetAll()
         {
-            var accounts = accountRepository.GetAccounts();
-
-            // Validate the model state
-            // Kh valid thì trả về BadRequest
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            return Ok(accounts);
+            var accounts = await accountRepo.GetAllAsync();
+            return Ok(accounts.Select(a => a.ToDto()));
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Account))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetAccount(int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            if (!accountRepository.AccountExists(id))
+            var account = await accountRepo.GetByIdAsync(id);
+            if (account == null)
             {
                 return NotFound();
             }
+            return Ok(account.ToDto());
+        }
 
-            var account = accountRepository.GetAccount(id);
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateAccountRequestDto accountDto)
+        {
+            var account = accountDto.ToModel();
+            await accountRepo.CreateAsync(account);
+            return CreatedAtAction(nameof(GetById), new { id = account.Id }, account.ToDto());
+        }
 
-            if (!ModelState.IsValid)
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAccountRequestDto accountDto)
+        {
+            var account = await accountRepo.UpdateAsync(id, accountDto);
+            if (account == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
-            
-            return Ok(account);
+            return Ok(account.ToDto());
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var accountModel = await accountRepo.DeleteAsync(id);
+
+            if (accountModel == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
 

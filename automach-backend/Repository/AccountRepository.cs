@@ -1,46 +1,71 @@
-using System.Net.NetworkInformation;
 using automach_backend.Data;
+using automach_backend.Dto.Account;
 using automach_backend.Interfaces;
 using automach_backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace automach_backend.Repository
 {
     public class AccountRepository : IAccountRepository
     {
         private readonly DataContext context;
-
+    
         public AccountRepository(DataContext context)
         {
             this.context = context;
         }
 
-        public bool AccountExists(int id)
+        public async Task<Account?> CreateAsync(Account account)
         {
-            // Any() will return true if any element in the sequence satisfies the condition
-            return context.Accounts.Any(a => a.Id == id);
+            await context.Accounts.AddAsync(account);
+            await context.SaveChangesAsync();
+            return account;
         }
 
-        // FirstOrDefault() will return the first element of a sequence or a default value if no element is found
-        public Account GetAccount(int id)
+        public async Task<Account?> DeleteAsync(int id)
         {
-            return context.Accounts.Where(a => a.Id == id).FirstOrDefault();
+            var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
+            if (account == null)
+            {
+                return null;
+            }
+            context.Accounts.Remove(account);
+            await context.SaveChangesAsync();
+            return account;
         }
 
-        public Account GetAccount(string username)
+        public async Task<List<Account>> GetAllAsync()
         {
-            return context.Accounts.Where(a => a.Username == username).FirstOrDefault();
+            return await context.Accounts.ToListAsync();
         }
 
-        public Account GetAccount(string username, string password)
+        public async Task<Account?> GetByIdAsync(int id)
         {
-            return context.Accounts.Where(a => a.Username == username && a.Password == password).FirstOrDefault();
+            var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
+            if (account == null)
+            {
+                return null;
+            }
+            return account;
         }
 
-        public ICollection<Account> GetAccounts()
+        public async Task<Account?> UpdateAsync(int id, UpdateAccountRequestDto accountDto)
         {
-            // Phai su dung ToList() de explicitly execute the query
-            // Neu khong ICollection se kh biet kieu gi
-            return context.Accounts.OrderBy(a => a.Id).ToList();
+            var existingAccount = await context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
+            if (existingAccount == null)
+            {
+                return null;
+            }
+
+            existingAccount.Name = accountDto.Name;
+            existingAccount.Email = accountDto.Email;
+            existingAccount.PhoneNumber = accountDto.PhoneNumber;
+            existingAccount.Username = accountDto.Username;
+            existingAccount.Password = accountDto.Password;
+
+            await context.SaveChangesAsync();
+
+            return existingAccount;
         }
-    }   
+  }
 }
