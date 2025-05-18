@@ -18,16 +18,15 @@ namespace automach_backend.Mappers
             };
         }
 
-        public static Review ToModel(this CreateReviewRequestDto dto)
+        public static Review ToModel(this CreateReviewRequestDto dto, int accountId, int gameId)
         {
             return new Review
             {
-                Id = dto.Id,
-                GameId = dto.GameId,
-                AccountId = dto.AccountId,
+                GameId = gameId,
+                AccountId = accountId,
                 Content = dto.Content,
                 Rating = dto.Rating,
-                CreatedAt = dto.CreatedAt
+                CreatedAt = DateTime.UtcNow
             };
         }
     }

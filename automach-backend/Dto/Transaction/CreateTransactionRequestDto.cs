@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace automach_backend.Dto.Transaction
 {
-    public class TransactionDto
+    public class CreateTransactionRequestDto
     {
-        public int Id { get; set; }
         public int AccountId { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string PaymentMethod { get; set; } = string.Empty;
         public float TotalPrice { get; set; }
-
     }
 }

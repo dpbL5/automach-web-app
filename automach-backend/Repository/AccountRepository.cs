@@ -15,7 +15,12 @@ namespace automach_backend.Repository
             this.context = context;
         }
 
-        public async Task<Account?> CreateAsync(Account account)
+        public async Task<bool> AccountExists(int id)
+        {
+            return await context.Accounts.AnyAsync(a => a.Id == id);
+        }
+
+    public async Task<Account?> CreateAsync(Account account)
         {
             await context.Accounts.AddAsync(account);
             await context.SaveChangesAsync();

@@ -11,5 +11,6 @@ namespace automach_backend.Interfaces
         Task<Account?> CreateAsync(Account account);
         Task<Account?> UpdateAsync(int id, UpdateAccountRequestDto accountDto);
         Task<Account?> DeleteAsync(int id);
+        Task<bool> AccountExists(int id);
     }
 }

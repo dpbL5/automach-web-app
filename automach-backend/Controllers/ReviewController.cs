@@ -12,10 +12,12 @@ namespace automach_backend.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewRepository _reviewRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public ReviewController(IReviewRepository reviewRepository)
+        public ReviewController(IReviewRepository reviewRepository, IAccountRepository accountRepository)
         {
             _reviewRepository = reviewRepository;
+            _accountRepository = accountRepository;
         }
 
         [HttpGet]
@@ -36,10 +38,18 @@ namespace automach_backend.Controllers
             return Ok(review);
         }
 
+        // Can fix 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateReviewRequestDto reviewDto)
+        [Route("{accountId}/{gameId}")]
+        public async Task<IActionResult> Create([FromRoute] int accountId, [FromRoute] int gameId, [FromBody] CreateReviewRequestDto reviewDto)
         {
-            var review = await _reviewRepository.CreateAsync(reviewDto.ToModel());
+            if (!await _accountRepository.AccountExists(accountId))
+            {
+                return BadRequest("Account does not exist.");
+            }
+
+            var review = reviewDto.ToModel(accountId, gameId);
+            await _reviewRepository.CreateAsync(review, accountId, gameId);
             return CreatedAtAction(nameof(GetById), new { id = review.Id }, review);
         }
 

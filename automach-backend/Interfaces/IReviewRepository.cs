@@ -9,7 +9,7 @@ namespace automach_backend.Interfaces
     {
         Task<List<Review>> GetAllAsync();
         Task<Review?> GetByIdAsync(int id);
-        Task<Review?> CreateAsync(Review ReviewModel);
+        Task<Review?> CreateAsync(Review ReviewModel, int accountId, int gameId);
         Task<Review?> UpdateAsync(int id, UpdateReviewRequestDto ReviewDto);
         Task<Review?> DeleteAsync(int id);
     }

@@ -13,7 +13,7 @@ namespace automach_backend.Repository
         {
             this.context = context;
         }
-        public async Task<Review?> CreateAsync(Review reviewModel)
+        public async Task<Review?> CreateAsync(Review reviewModel, int accountId, int gameId)
         {
             await context.Reviews.AddAsync(reviewModel);
             await context.SaveChangesAsync();

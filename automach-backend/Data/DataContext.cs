@@ -62,7 +62,7 @@ namespace automach_backend.Data
 
             // Config cho Review
             modelBuilder.Entity<Review>()
-                .HasKey(r => new { r.GameId, r.AccountId, r.Id });
+                .HasKey(r => new { r.GameId, r.AccountId });
             modelBuilder.Entity<Review>()
                 .HasOne(g => g.Game)
                 .WithMany(r => r.Reviews)
@@ -74,7 +74,7 @@ namespace automach_backend.Data
 
             // Config cho Transaction
             modelBuilder.Entity<Transaction>()
-                .HasKey(t => t.Id);
+                .HasKey(t => new { t.Id, t.AccountId });
             modelBuilder.Entity<Transaction>()
                 .HasOne(a => a.Account)
                 .WithMany(t => t.Transactions)
