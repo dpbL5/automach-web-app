@@ -9,6 +9,7 @@ namespace automach_backend.Mappers
         {
             return new TransactionDto
             {
+                Id = transaction.Id,
                 AccountId = transaction.AccountId,
                 CreatedAt = transaction.CreatedAt,
                 PaymentMethod = transaction.PaymentMethod,

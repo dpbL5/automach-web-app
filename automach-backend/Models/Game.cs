@@ -10,9 +10,10 @@ namespace automach_backend.Models
         public string Developer { get; set; } = string.Empty;
         public bool IsFeatured { get; set; }
         public ICollection<Review>? Reviews { get; set; }
-        public ICollection<GameOwned>? GamesOwned { get; set; } 
+        public ICollection<GameOwned>? GamesOwned { get; set; }
         public ICollection<GameTag>? GameTags { get; set; }
-        public ICollection<TransactionItem>? TransactionItems { get; set; } 
+        public ICollection<TransactionItem>? TransactionItems { get; set; }
+        public ICollection<ImageUrl>? ImageUrls { get; set; }
     }
 
 }

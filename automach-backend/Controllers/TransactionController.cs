@@ -1,11 +1,12 @@
 using automach_backend.Dto.Transaction;
 using automach_backend.Interfaces;
 using automach_backend.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace automach_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/transactions")]
     [ApiController]
     public class TransactionController : ControllerBase
     {
@@ -18,6 +19,7 @@ namespace automach_backend.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAll()
         {
             var transactions = await _transactionRepository.GetAllAsync();
@@ -25,6 +27,7 @@ namespace automach_backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var transaction = await _transactionRepository.GetByIdAsync(id);
@@ -32,10 +35,18 @@ namespace automach_backend.Controllers
             {
                 return NotFound();
             }
-            return Ok(transaction.ToDto());
+            
+            // Check if user is admin or owns this transaction
+            if (User.IsInRole("admin") || transaction.AccountId == GetCurrentUserId())
+            {
+                return Ok(transaction.ToDto());
+            }
+            
+            return Forbid();
         }
 
         [HttpPost("{accountId}")]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] TransactionDto transactionDto, [FromRoute] int accountId)
         {
             // Check if the account exists
@@ -43,10 +54,26 @@ namespace automach_backend.Controllers
             {
                 return BadRequest("Account does not exist.");
             }
+            
+            // Only admin or the account owner can create transactions
+            if (!User.IsInRole("admin") && accountId != GetCurrentUserId())
+            {
+                return Forbid();
+            }
 
             var transaction = transactionDto.ToModel(accountId);
             await _transactionRepository.CreateAsync(transaction);
             return CreatedAtAction(nameof(GetById), new { id = transaction.Id }, transaction.ToDto());
+        }
+        
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return userId;
+            }
+            return 0;
         }
     }
 }

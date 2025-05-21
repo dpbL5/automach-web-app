@@ -7,8 +7,6 @@ namespace automach_backend.Dto.Transaction
 {
     public class CreateTransactionRequestDto
     {
-        public int AccountId { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string PaymentMethod { get; set; } = string.Empty;
         public float TotalPrice { get; set; }
     }

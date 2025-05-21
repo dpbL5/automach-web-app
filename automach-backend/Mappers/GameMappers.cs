@@ -15,7 +15,7 @@ namespace automach_backend.Mappers
                 Price = game.Price,
                 GameInfo = game.GameInfo,
                 ReleaseDate = game.ReleaseDate,
-                Developer = game.Developer
+                Developer = game.Developer,
             };
         }
 

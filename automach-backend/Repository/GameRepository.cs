@@ -4,6 +4,7 @@ using automach_backend.Interfaces;
 using automach_backend.Models;
 using automach_backend.Data;
 using Microsoft.EntityFrameworkCore;
+using automach_backend.Helpers;
 
 namespace automach_backend.Repository
 {
@@ -34,9 +35,24 @@ namespace automach_backend.Repository
 			return game;
 		}
 
-		public async Task<List<Game>> GetAllAsync()
+		public Task<bool> GameExists(int gameId)
 		{
-			return await context.Games.ToListAsync();
+			return context.Games.AnyAsync(g => g.Id == gameId);
+		}
+
+    public async Task<List<Game>> GetAllAsync(QueryObject query)
+		{
+			var games = context.Games.Include(r => r.Reviews).AsQueryable();
+
+			if (!string.IsNullOrEmpty(query.Title))
+			{
+				games = games.Where(g => g.Title.Contains(query.Title));
+			}
+			// if (!string.IsNullOrEmpty(query.Tag))
+			// {
+			// 	games = games.Where(g => g.GameTags.Contains(query.Tag));
+			// }
+			return await games.ToListAsync();
 		}
 
 		public async Task<Game?> GetByIdAsync(int id)

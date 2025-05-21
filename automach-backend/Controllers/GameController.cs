@@ -1,4 +1,5 @@
 using automach_backend.Dto.Game;
+using automach_backend.Helpers;
 using automach_backend.Interfaces;
 using automach_backend.Mappers;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace automach_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/games")]
     [ApiController]
     public class GameController : ControllerBase
     {
@@ -19,9 +20,35 @@ namespace automach_backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
-            var games = await gameRepo.GetAllAsync();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var games = await gameRepo.GetAllAsync(query);
+            return Ok(games.Select(g => g.ToDto()));
+        }
+
+        [HttpGet("featured")]
+        public async Task<IActionResult> GetFeatured()
+        {
+            var query = new QueryObject { IsFeatured = true };
+            var games = await gameRepo.GetAllAsync(query);
+            return Ok(games.Select(g => g.ToDto()));
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string? title, [FromQuery] string? tag)
+        {
+            var query = new QueryObject
+            {
+                Title = title,
+                GameTag = tag
+            };
+            
+            var games = await gameRepo.GetAllAsync(query);
             return Ok(games.Select(g => g.ToDto()));
         }
 
@@ -37,7 +64,7 @@ namespace automach_backend.Controllers
         }
 
         [HttpPost]
-        // [Authorize] // Assuming you want to restrict this action to authenticated users
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([FromBody] CreateGameRequestDto gameDto)
         {
             var game = gameDto.ToModel();
@@ -47,7 +74,7 @@ namespace automach_backend.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        // [Authorize] // Assuming you want to restrict this action to authenticated users
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateGameRequestDto gameDto)
         {
             var game = await gameRepo.UpdateAsync(id, gameDto);
@@ -60,7 +87,7 @@ namespace automach_backend.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        // [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var game = await gameRepo.DeleteAsync(id);

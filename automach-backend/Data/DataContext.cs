@@ -48,6 +48,13 @@ namespace automach_backend.Data
                 .WithMany(gt => gt.GameTags)
                 .HasForeignKey(t => t.TagId);
 
+            modelBuilder.Entity<Transaction>()
+                .HasKey(t => t.Id);
+            modelBuilder.Entity<Transaction>()
+                .HasOne(a => a.Account)
+                .WithMany(t => t.Transactions)
+                .HasForeignKey(a => a.AccountId);
+
             // Config cho TransactionItem
             modelBuilder.Entity<TransactionItem>()
                 .HasKey(ti => new { ti.TransactionId, ti.GameId });
@@ -70,14 +77,6 @@ namespace automach_backend.Data
             modelBuilder.Entity<Review>()
                 .HasOne(a => a.Account)
                 .WithMany(r => r.Reviews)
-                .HasForeignKey(a => a.AccountId);
-
-            // Config cho Transaction
-            modelBuilder.Entity<Transaction>()
-                .HasKey(t => new { t.Id, t.AccountId });
-            modelBuilder.Entity<Transaction>()
-                .HasOne(a => a.Account)
-                .WithMany(t => t.Transactions)
                 .HasForeignKey(a => a.AccountId);
 
 

@@ -28,12 +28,22 @@ namespace automach_backend.Repository
             return transaction;
         }
 
-        public async Task<Transaction?> CreateAsync(Transaction TransactionmModel)
+        public async Task<Transaction> CreateAsync(Transaction transaction)
         {
-            await _context.Transactions.AddAsync(TransactionmModel);
+            await _context.Transactions.AddAsync(transaction);
             await _context.SaveChangesAsync();
-            return TransactionmModel;
+            return transaction;
         }
+
+        public async Task<List<Transaction>> GetTransactionsByAccountIdAsync(int accountId)
+        {
+            return await _context.Transactions
+                .Where(t => t.AccountId == accountId)
+                .Include(t => t.TransactionItems)
+                    .ThenInclude(ti => ti.Game)
+                .ToListAsync();
+        }
+
         // public async Task<bool> TransactionExists(int id)
         // {
         //     return await _context.Transactions.AnyAsync(a => a.Id == id);

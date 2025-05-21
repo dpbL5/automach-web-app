@@ -6,7 +6,8 @@ namespace automach_backend.Interfaces
     {
         Task<List<Transaction>> GetAllAsync();
         Task<Transaction?> GetByIdAsync(int id);
-        Task<Transaction?> CreateAsync(Transaction TransactionmModel);
+        Task<Transaction> CreateAsync(Transaction transaction);
+        Task<List<Transaction>> GetTransactionsByAccountIdAsync(int accountId);
         // Task<bool> TransactionExists(int id);
     }
 }

@@ -2,20 +2,25 @@ using Microsoft.AspNetCore.Mvc;
 using automach_backend.Mappers;
 using automach_backend.Dto.Account;
 using automach_backend.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace automach_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/accounts")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository accountRepo;
-        public AccountController(IAccountRepository accountRepo)
+        private readonly ITransactionRepository transactionRepo;
+        
+        public AccountController(IAccountRepository accountRepo, ITransactionRepository transactionRepo)
         {
             this.accountRepo = accountRepo;
+            this.transactionRepo = transactionRepo;
         }
         
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAll()
         {
             var accounts = await accountRepo.GetAllAsync();
@@ -23,14 +28,41 @@ namespace automach_backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            // Only admin or account owner can access account details
+            if (!User.IsInRole("admin") && id != GetCurrentUserId())
+            {
+                return Forbid();
+            }
+            
             var account = await accountRepo.GetByIdAsync(id);
             if (account == null)
             {
                 return NotFound();
             }
             return Ok(account.ToDto());
+        }
+
+        [HttpGet("{id}/transactions")]
+        [Authorize]
+        public async Task<IActionResult> GetTransactions([FromRoute] int id)
+        {
+            // Only admin or account owner can access account transactions
+            if (!User.IsInRole("admin") && id != GetCurrentUserId())
+            {
+                return Forbid();
+            }
+            
+            var account = await accountRepo.GetByIdAsync(id);
+            if (account == null)
+            {
+                return NotFound("Account not found");
+            }
+
+            var transactions = await transactionRepo.GetTransactionsByAccountIdAsync(id);
+            return Ok(transactions.Select(t => t.ToDto()));
         }
 
         [HttpPost]
@@ -43,8 +75,15 @@ namespace automach_backend.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAccountRequestDto accountDto)
         {
+            // Only admin or account owner can update account
+            if (!User.IsInRole("admin") && id != GetCurrentUserId())
+            {
+                return Forbid();
+            }
+            
             var account = await accountRepo.UpdateAsync(id, accountDto);
             if (account == null)
             {
@@ -55,6 +94,7 @@ namespace automach_backend.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var accountModel = await accountRepo.DeleteAsync(id);
@@ -65,6 +105,15 @@ namespace automach_backend.Controllers
             }
             return NoContent();
         }
+        
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return userId;
+            }
+            return 0;
+        }
     }
-
 }
