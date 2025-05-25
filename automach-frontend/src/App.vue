@@ -1,9 +1,12 @@
 <script setup>
-// import { StoreView } from "./views/StoreView.vue";
-const msg = "";
+import { ref } from "vue";
+const msg = ref("Welcome to Automach!");
 </script>
 
 <template>
-  <h1>Testing</h1>
-  <span>Message: {{ msg }}</span>
+  <header class="header">
+    <p class="nav__item">{{ msg }}</p>
+  </header>
 </template>
+
+<style src="./assets/main.css"></style>
