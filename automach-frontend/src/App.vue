@@ -1,12 +1,24 @@
 <script setup>
-import { ref } from "vue";
-const msg = ref("Welcome to Automach!");
+import SuperNav from "./components/SuperNav.vue";
+import Footer from "./components/Footer.vue";
+import Nav from "./components/Nav.vue";
 </script>
 
 <template>
-  <header class="header">
-    <p class="nav__item">{{ msg }}</p>
-  </header>
+  <div class="app">
+    <SuperNav />
+    <main class="main-content">
+      <router-view></router-view>
+    </main>
+    <Footer />
+  </div>
 </template>
 
-<style src="./assets/main.css"></style>
+<style>
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+</style>

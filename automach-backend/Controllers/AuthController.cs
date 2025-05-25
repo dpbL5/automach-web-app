@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using automach_backend.Dto.Auth;
 using automach_backend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace automach_backend.Controllers
 {
@@ -40,6 +41,27 @@ namespace automach_backend.Controllers
             }
 
             return CreatedAtAction(nameof(Register), result);
+        }
+
+        [HttpGet("me")]
+        [Authorize]
+        public IActionResult GetCurrentUser()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (userId == null || username == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(new
+            {
+                Id = int.Parse(userId),
+                Username = username,
+                Role = role
+            });
         }
 
         [HttpPost("logout")]

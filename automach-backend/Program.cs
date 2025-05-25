@@ -56,10 +56,12 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 // Add CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", 
-        builder => builder.AllowAnyOrigin()
-                         .AllowAnyMethod()
-                         .AllowAnyHeader());
+    options.AddPolicy("AllowFrontend", 
+        builder => builder
+            .SetIsOriginAllowed(origin => true) // Allow all origins in development
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
 });
 
 builder.Services.AddControllers();
@@ -135,20 +137,37 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => 
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Automach Game Store API v1");
-        // c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
     });
 }
 
-app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+// Important: UseCors must be called before UseHttpsRedirection and other middleware
+app.UseCors("AllowFrontend");
+
+// Configure HTTPS redirection only in production
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Configure the URLs
+app.Urls.Clear();
+app.Urls.Add("http://localhost:5174");
+// Only add HTTPS URL in production
+if (!app.Environment.IsDevelopment())
+{
+    app.Urls.Add("https://localhost:5175");
+}
+
 app.Run();
 

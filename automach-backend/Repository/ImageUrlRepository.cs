@@ -14,67 +14,36 @@ namespace automach_backend.Repository
             _context = context;
         }
 
-        public async Task<List<string>> GetImageUrlsByGameId(int gameId)
+        public async Task<ICollection<ImageUrl>> GetImagesByGameIdAsync(int gameId)
         {
-            return await _context.Set<ImageUrl>()
-                .Where(img => img.GameId == gameId)
-                .Select(img => img.Url)
+            return await _context.ImageUrls
+                .Where(i => i.GameId == gameId)
                 .ToListAsync();
         }
 
-        public async Task<string> CreateImageUrl(string url, int gameId)
+        public async Task<ImageUrl?> GetByIdAsync(int id)
         {
-            var imageUrl = new ImageUrl
-            {
-                Url = url,
-                GameId = gameId
-            };
-
-            _context.Set<ImageUrl>().Add(imageUrl);
-            await _context.SaveChangesAsync();
-            return url;
+            return await _context.ImageUrls.FindAsync(id);
         }
 
-        public async Task<bool> DeleteImageUrl(int id)
+        public async Task<ImageUrl> CreateAsync(ImageUrl imageUrl)
         {
-            var imageUrl = await _context.Set<ImageUrl>().FindAsync(id);
+            await _context.ImageUrls.AddAsync(imageUrl);
+            await _context.SaveChangesAsync();
+            return imageUrl;
+        }
+
+        public async Task<ImageUrl?> DeleteAsync(int id)
+        {
+            var imageUrl = await _context.ImageUrls.FindAsync(id);
             if (imageUrl == null)
             {
-                return false;
+                return null;
             }
 
-            _context.Set<ImageUrl>().Remove(imageUrl);
+            _context.ImageUrls.Remove(imageUrl);
             await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> UpdateImageUrl(int id, string url)
-        {
-            var imageUrl = await _context.Set<ImageUrl>().FindAsync(id);
-            if (imageUrl == null)
-            {
-                return false;
-            }
-
-            imageUrl.Url = url;
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> DeleteImageUrlsByGameId(int gameId)
-        {
-            var imageUrls = await _context.Set<ImageUrl>()
-                .Where(img => img.GameId == gameId)
-                .ToListAsync();
-
-            if (!imageUrls.Any())
-            {
-                return false;
-            }
-
-            _context.Set<ImageUrl>().RemoveRange(imageUrls);
-            await _context.SaveChangesAsync();
-            return true;
+            return imageUrl;
         }
     }
 }

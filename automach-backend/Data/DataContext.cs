@@ -18,6 +18,7 @@ namespace automach_backend.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionItem> TransactionItems { get; set; }
+        public DbSet<ImageUrl> ImageUrls { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +49,13 @@ namespace automach_backend.Data
                 .WithMany(gt => gt.GameTags)
                 .HasForeignKey(t => t.TagId);
 
+            // Config cho ImageUrl
+            modelBuilder.Entity<ImageUrl>()
+                .HasOne(i => i.Game)
+                .WithMany(g => g.ImageUrls)
+                .HasForeignKey(i => i.GameId);
+
+            // Config cho Transaction
             modelBuilder.Entity<Transaction>()
                 .HasKey(t => t.Id);
             modelBuilder.Entity<Transaction>()

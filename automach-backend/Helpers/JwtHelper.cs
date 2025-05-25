@@ -17,7 +17,8 @@ namespace automach_backend.Helpers
             {
                 new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
                 new Claim(ClaimTypes.Name, account.Username),
-                new Claim(ClaimTypes.Role, account.Role)
+                new Claim(ClaimTypes.Role, account.Role),
+                new Claim("name", account.Name)
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
