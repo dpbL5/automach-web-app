@@ -34,7 +34,7 @@
   /* Gradients */
   --Gradient-Button-Action: linear-gradient(270deg, #00bbff 0%, #1a9fff 100%);
   --Gradient-Background-Main: linear-gradient(
-    90deg,
+    180deg,
     var(--Color-Background-Tertiary) 0%,
     var(--Color-Background-Secondary) 100%
   );
@@ -50,14 +50,16 @@
 }
 
 @font-face {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans";
   src: url(../fonts/NotoSans.ttf), format("truetype");
+  /* src: url(../fonts/Montserrat.ttf), format("ttf"); */
 }
 
 * {
   padding: 0px;
   margin: 0px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans";
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -65,48 +67,7 @@
 }
 
 html {
-  background-image: var(--Gradient-Background-Main);
-}
-
-.header {
-  display: flex;
-  background-color: var(--Color-Background-Main);
-  align-items: center;
-}
-
-.nav {
-  display: flex;
-  width: calc(100% - 200px);
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-list {
-  list-style: none;
-  display: flex;
-  gap: 24px;
-}
-
-.nav__item {
-  font: var(--Text-BodyLarge);
-  color: var(--Color-Text-Main);
-  font-weight: 700;
-}
-
-.nav__item a {
-  text-decoration: none;
-  color: var(--Color-Text-Main);
-}
-
-.nav__item a:hover,
-.nav__item.active a {
-  text-decoration: none;
-  color: var(--Color-Primary);
-}
-
-.logo {
-  height: 16px;
+  background: var(--Gradient-Background-Main);
 }
 
 .nav--sub {

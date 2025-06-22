@@ -1,24 +1,29 @@
-<script setup>
-import SuperNav from "./components/SuperNav.vue";
-import Footer from "./components/Footer.vue";
-import Nav from "./components/Nav.vue";
-</script>
-
 <template>
-  <div class="app">
-    <SuperNav />
-    <main class="main-content">
-      <router-view></router-view>
-    </main>
-    <Footer />
-  </div>
+  <SupNav />
+  <Register />
+  <Footer />
 </template>
 
-<style>
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+<script>
+import SupNav from "./components/SupNav.vue";
+import Home from "./components/Home.vue";
+import Footer from "./components/Footer.vue";
+import Login from "./components/Login.vue";
+import Register from "./components/Register.vue";
 
-</style>
+export default {
+  data() {
+    return {};
+  },
+
+  components: {
+    SupNav,
+    Home, 
+    Login,
+    Register,
+    Footer,
+  },
+};
+</script>
+
+<style></style>

@@ -1,31 +1,32 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <img src="../assets/images/AUTOMACH.png" alt="Logo">
-                <p>© 2025 Automach Corporation. All rights reserved. All trademarks are property of their respective owners in the US and other countries.
-VAT included in all prices where applicable.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Links</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>   
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: info@automach.com</p>
-                <p>Phone: +123 456 7890</p>
-            </div>
-        </div>
-    </footer>
-
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <img src="../assets/images/logo.png" alt="Logo" />
+        <p>
+          © 2025 Automach Corporation. All rights reserved. All trademarks are
+          property of their respective owners in the US and other countries. VAT
+          included in all prices where applicable.
+        </p>
+      </div>
+      <div class="footer-section">
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Legal</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <ul>
+          <li><a href="">Facebook</a></li>
+          <li><a href="">X (Twitter)</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <style scoped>
@@ -41,16 +42,30 @@ VAT included in all prices where applicable.</p>
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
-  max-width: 1200px;
+  max-width: 940px;
   margin: 0 auto;
   gap: 32px;
 }
 
 .footer-section {
-    width: 300px;
+  width: 350px;
 }
 
-a, p {
-    color: var(--Color-Text-Dim);
+ul {
+  list-style: none;
+}
+
+li {
+  margin: 12px 0;
+}
+
+li a {
+  text-decoration: none;
+  color: var(--Color-Text-Main);
+  margin: 10px 0;
+}
+p {
+  text-decoration: none;
+  color: var(--Color-Text-Dim);
 }
 </style>
