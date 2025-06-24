@@ -47,6 +47,14 @@ namespace automach_backend.Repository
             return review;
         }
 
+        public async Task<List<Review>> GetByGameIdAsync(int gameId)
+        {
+            return await context.Reviews
+                .Where(r => r.GameId == gameId)
+                .OrderByDescending(r => r.CreatedAt)
+                .ToListAsync();
+        }
+
         public async Task<Review?> UpdateAsync(int id, UpdateReviewRequestDto ReviewDto)
         {
             var existingReview = await context.Reviews.FirstOrDefaultAsync(a => a.Id == id);

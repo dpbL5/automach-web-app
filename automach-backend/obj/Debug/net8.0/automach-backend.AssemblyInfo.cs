@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("automach-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f65f85d7bae2eb202722e78ddd3a61b118710c38")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d9557265e27fc0500188245ff07b84dd8ff830f")]
 [assembly: System.Reflection.AssemblyProductAttribute("automach-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("automach-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

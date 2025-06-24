@@ -3,6 +3,7 @@ using automach_backend.Interfaces;
 using automach_backend.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace automach_backend.Controllers
 {
@@ -24,6 +25,29 @@ namespace automach_backend.Controllers
         {
             var transactions = await _transactionRepository.GetAllAsync();
             return Ok(transactions.Select(t => t.ToDto()));
+        }
+
+        [HttpGet("revenue-data")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetRevenueData()
+        {
+            var transactions = await _transactionRepository.GetAllAsync();
+            
+            var revenueData = transactions
+                .GroupBy(t => new { Year = t.CreatedAt.Year, Month = t.CreatedAt.Month })
+                .Select(g => new
+                {
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
+                    TotalRevenue = g.Sum(t => t.TotalPrice),
+                    TransactionCount = g.Count()
+                })
+                .OrderBy(g => g.Year)
+                .ThenBy(g => g.Month)
+                .ToList();
+            
+            return Ok(revenueData);
         }
 
         [HttpGet("{id}")]

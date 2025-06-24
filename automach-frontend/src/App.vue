@@ -1,29 +1,23 @@
 <template>
   <SupNav />
-  <Register />
-  <Footer />
+  <router-view />
 </template>
 
 <script>
 import SupNav from "./components/SupNav.vue";
-import Home from "./components/Home.vue";
-import Footer from "./components/Footer.vue";
-import Login from "./components/Login.vue";
-import Register from "./components/Register.vue";
 
 export default {
-  data() {
-    return {};
-  },
-
   components: {
     SupNav,
-    Home, 
-    Login,
-    Register,
-    Footer,
   },
 };
 </script>
 
-<style></style>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0e141b;
+  color: #f3f3f3;
+}
+</style>

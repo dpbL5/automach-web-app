@@ -208,3 +208,4 @@ D:\_Projects\web-dev_automach\automach-backend\obj\Debug\net8.0\refint\automach-
 D:\_Projects\web-dev_automach\automach-backend\obj\Debug\net8.0\automach-backend.pdb
 D:\_Projects\web-dev_automach\automach-backend\obj\Debug\net8.0\automach-backend.genruntimeconfig.cache
 D:\_Projects\web-dev_automach\automach-backend\obj\Debug\net8.0\ref\automach-backend.dll
+D:\_Projects\web-dev_automach\automach-backend\bin\Debug\net8.0\automach-backend.staticwebassets.runtime.json

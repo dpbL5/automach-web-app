@@ -24,6 +24,17 @@ namespace automach_backend.Repository
             return tags;
         }
 
+        public async Task<List<Game>> GetGamesByTagIdAsync(int tagId)
+        {
+            var games = await _context.GameTags
+                .Where(gt => gt.TagId == tagId)
+                .Select(gt => gt.Game!)
+                .Include(g => g.ImageUrls)
+                .ToListAsync();
+                
+            return games;
+        }
+
         public async Task<GameTag> AddTagToGameAsync(int gameId, int tagId)
         {
             var gameTag = new GameTag

@@ -1,0 +1,60 @@
+.button {
+    color: var(--Color-Text-Main);
+    background-color: var(--Color-Background-Highlight);
+    font: var(--Text-BodyMedium);
+    border-radius: 3px;
+    border: none;
+    padding: 12px 24px;
+}
+
+.button:hover {
+    color: var(--Color-Text-Main);
+    background-color: var(--Color-Background-Hover);
+    cursor: pointer;
+}
+
+.button--primary {
+    background: var(--Color-Secondary);
+}
+
+.button--primary:hover {
+    color: var(--Color-Background-Main);
+    background: var(--Color-Primary);
+    cursor: pointer;
+}
+
+.button--action {
+    background: var(--Gradient-Button-Action);
+    font-weight: 700;
+}
+
+.button--action:hover {
+    background: var(--Color-Primary);
+    cursor: pointer;
+}
+
+.button--play {
+    background-color: var(--Color-Accent-Green);
+    color: var(--Color-Background-Main);
+    font-weight: 700;
+}
+
+.button--play:hover {
+    background: var(--Color-Accent-Green-Highlight);
+    color: var(--Color-Background-Main);
+}
+
+.tag {
+    color: var(--Color-Text-Main);
+    background-color: var(--Color-Secondary);
+    font: var(--Text-BodySmall);
+    border-radius: 3px;
+    padding: 3px 6px;
+    margin: 3px;
+}
+
+.tags {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+}

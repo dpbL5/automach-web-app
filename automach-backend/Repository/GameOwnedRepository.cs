@@ -36,5 +36,11 @@ namespace automach_backend.Repository
             await _context.SaveChangesAsync();
             return gameOwned;
         }
+
+        public async Task<bool> IsGameOwnedByAccountAsync(int accountId, int gameId)
+        {
+            return await _context.GamesOwned
+                .AnyAsync(go => go.AccountId == accountId && go.GameId == gameId);
+        }
     }
 } 

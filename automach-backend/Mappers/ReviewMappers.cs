@@ -1,4 +1,3 @@
-
 using automach_backend.Dto.Review;
 using automach_backend.Models;
 
@@ -10,6 +9,7 @@ namespace automach_backend.Mappers
         {
             return new ReviewDto
             {
+                Id = review.Id,
                 GameId = review.GameId,
                 AccountId = review.AccountId,
                 Content = review.Content,

@@ -38,6 +38,27 @@ namespace automach_backend.Controllers
             return Ok(games.Select(g => g.ToDto()));
         }
 
+        [HttpGet("check/{gameId}")]
+        public async Task<IActionResult> CheckGameOwnership(int accountId, int gameId)
+        {
+            // Verify account exists
+            var account = await _accountRepository.GetByIdAsync(accountId);
+            if (account == null)
+            {
+                return NotFound($"Account with ID {accountId} not found");
+            }
+
+            // Verify game exists
+            var game = await _gameRepository.GetByIdAsync(gameId);
+            if (game == null)
+            {
+                return NotFound($"Game with ID {gameId} not found");
+            }
+
+            var isOwned = await _gameOwnedRepository.IsGameOwnedByAccountAsync(accountId, gameId);
+            return Ok(new { isOwned });
+        }
+
         [HttpPost("{gameId}")]
         public async Task<IActionResult> AddGameToAccount(int accountId, int gameId)
         {

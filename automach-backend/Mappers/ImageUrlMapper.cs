@@ -15,9 +15,9 @@ namespace automach_backend.Mappers
             };
         }
 
-        public static Models.ImageUrl ToModel(this CreateImageUrlRequestDto dto, int gameId)
+        public static ImageUrl ToModel(this CreateImageUrlRequestDto dto, int gameId)
         {
-            return new Models.ImageUrl
+            return new ImageUrl
             {
                 Url = dto.Url,
                 GameId = gameId

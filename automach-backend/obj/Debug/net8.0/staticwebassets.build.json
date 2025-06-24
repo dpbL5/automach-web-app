@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "MlxsnMUlmFzYwFHFAGBEZc1tWRTPHmWEelQtJQz3l8Q=",
+  "Hash": "9m19SXd+A2rXah24L50Jt4Fg41RiwBxqMrRM97iDOPs=",
   "Source": "automach-backend",
   "BasePath": "_content/automach-backend",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "automach-backend\\wwwroot",
+      "Source": "automach-backend",
+      "ContentRoot": "D:\\_Projects\\web-dev_automach\\automach-backend\\wwwroot\\",
+      "BasePath": "_content/automach-backend",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

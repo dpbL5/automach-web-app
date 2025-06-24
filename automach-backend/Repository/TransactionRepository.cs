@@ -15,7 +15,10 @@ namespace automach_backend.Repository
 
         public async Task<List<Transaction>> GetAllAsync()
         {
-            return await _context.Transactions.ToListAsync();
+            return await _context.Transactions
+                .Include(t => t.TransactionItems)
+                    .ThenInclude(ti => ti.Game)
+                .ToListAsync();
         }
 
         public async Task<Transaction?> GetByIdAsync(int id)

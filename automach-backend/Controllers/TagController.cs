@@ -11,10 +11,12 @@ namespace automach_backend.Controllers
     public class TagController : ControllerBase
     {
         private readonly ITagRepository _tagRepository;
+        private readonly IGameTagRepository _gameTagRepository;
 
-        public TagController(ITagRepository tagRepository)
+        public TagController(ITagRepository tagRepository, IGameTagRepository gameTagRepository)
         {
             _tagRepository = tagRepository;
+            _gameTagRepository = gameTagRepository;
         }
 
         [HttpGet]
@@ -67,6 +69,19 @@ namespace automach_backend.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        [HttpGet("{id}/games")]
+        public async Task<IActionResult> GetGamesByTagId(int id)
+        {
+            var tag = await _tagRepository.GetByIdAsync(id);
+            if (tag == null)
+            {
+                return NotFound();
+            }
+            
+            var games = await _gameTagRepository.GetGamesByTagIdAsync(id);
+            return Ok(games.Select(g => g.ToDto()));
         }
     }
 } 

@@ -46,6 +46,7 @@
 
   /* Shadows */
   --ShadowLight: 0px 10px 50px 10px rgba(0, 0, 0, 20%);
+  --ShadowMedium: 0px 10px 50px 10px rgba(0, 0, 0, 30%);
   --ShadowHeavy: 0px 10px 50px 10px rgba(0, 0, 0, 40%);
 }
 
@@ -227,4 +228,9 @@ html {
 .pagination > *:hover {
   background-color: var(--Color-Background-Hover);
   cursor: pointer;
+}
+
+input {
+  background-color: #3d4450;
+  border: none;
 }

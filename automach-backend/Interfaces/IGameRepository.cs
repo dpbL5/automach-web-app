@@ -6,7 +6,7 @@ namespace automach_backend.Interfaces
 {
     public interface IGameRepository
     {
-        Task<List<Game>> GetAllAsync(QueryObject queryObject);
+        Task<(List<Game> Games, int TotalCount)> GetAllAsync(QueryObject queryObject);
         Task<Game?> GetByIdAsync(int id);
         Task<Game?> CreateAsync(Game gamemModel);
         Task<Game?> UpdateAsync(int id, UpdateGameRequestDto gameDto);

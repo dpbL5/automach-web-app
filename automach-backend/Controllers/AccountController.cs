@@ -45,6 +45,24 @@ namespace automach_backend.Controllers
             return Ok(account.ToDto());
         }
 
+        [HttpGet("{id}/public")]
+        public async Task<IActionResult> GetPublicInfo([FromRoute] int id)
+        {
+            var account = await accountRepo.GetByIdAsync(id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+            
+            // Return only public information for display purposes
+            return Ok(new { 
+                id = account.Id,
+                name = account.Name ?? account.Username ?? "Anonymous",
+                username = account.Username
+            });
+        }
+
+        // Xem cac giao dich theo ID nguoi dung
         [HttpGet("{id}/transactions")]
         [Authorize]
         public async Task<IActionResult> GetTransactions([FromRoute] int id)
@@ -65,6 +83,8 @@ namespace automach_backend.Controllers
             return Ok(transactions.Select(t => t.ToDto()));
         }
 
+
+        // Tao tai khoan
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateAccountRequestDto accountDto)
         {

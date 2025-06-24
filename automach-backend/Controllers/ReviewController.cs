@@ -24,7 +24,7 @@ namespace automach_backend.Controllers
         public async Task<IActionResult> GetAll()
         {
             var reviews = await _reviewRepository.GetAllAsync();
-            return Ok(reviews);
+            return Ok(reviews.Select(r => r.ToDto()));
         }
 
         [HttpGet("{id}")]
@@ -35,7 +35,14 @@ namespace automach_backend.Controllers
             {
                 return NotFound();
             }
-            return Ok(review);
+            return Ok(review.ToDto());
+        }
+
+        [HttpGet("game/{gameId}")]
+        public async Task<IActionResult> GetByGameId(int gameId)
+        {
+            var reviews = await _reviewRepository.GetByGameIdAsync(gameId);
+            return Ok(reviews.Select(r => r.ToDto()));
         }
 
         // Can fix 
@@ -50,7 +57,7 @@ namespace automach_backend.Controllers
 
             var review = reviewDto.ToModel(accountId, gameId);
             await _reviewRepository.CreateAsync(review, accountId, gameId);
-            return CreatedAtAction(nameof(GetById), new { id = review.Id }, review);
+            return CreatedAtAction(nameof(GetById), new { id = review.Id }, review.ToDto());
         }
 
         [HttpPut("{id}")]
@@ -61,7 +68,7 @@ namespace automach_backend.Controllers
             {
                 return NotFound();
             }
-            return Ok(updatedReview);
+            return Ok(updatedReview.ToDto());
         }
 
         [HttpDelete("{id}")]

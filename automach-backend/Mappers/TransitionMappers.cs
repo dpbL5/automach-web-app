@@ -13,7 +13,8 @@ namespace automach_backend.Mappers
                 AccountId = transaction.AccountId,
                 CreatedAt = transaction.CreatedAt,
                 PaymentMethod = transaction.PaymentMethod,
-                TotalPrice = transaction.TotalPrice
+                TotalPrice = transaction.TotalPrice,
+                GameIds = transaction.TransactionItems?.Select(ti => ti.GameId).ToList() ?? new List<int>()
             };
         }
         public static Transaction ToModel(this TransactionDto dto, int accountId)

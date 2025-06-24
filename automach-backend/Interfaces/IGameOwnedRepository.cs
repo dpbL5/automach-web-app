@@ -6,5 +6,6 @@ namespace automach_backend.Interfaces
     {
         Task<List<Game>> GetOwnedGamesByAccountIdAsync(int accountId);
         Task<GameOwned> AddGameToAccountAsync(int accountId, int gameId);
+        Task<bool> IsGameOwnedByAccountAsync(int accountId, int gameId);
     }
 } 

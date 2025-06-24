@@ -4,7 +4,7 @@ using automach_backend.Interfaces;
 using automach_backend.Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
 
 namespace automach_backend.Controllers
 {
@@ -19,37 +19,32 @@ namespace automach_backend.Controllers
             this.gameRepo = gameRepo;
         }
 
+        // Get all games with filtering and pagination
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject query, [FromQuery] List<string>? gameTags = null)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var games = await gameRepo.GetAllAsync(query);
-            return Ok(games.Select(g => g.ToDto()));
-        }
-
-        [HttpGet("featured")]
-        public async Task<IActionResult> GetFeatured()
-        {
-            var query = new QueryObject { IsFeatured = true };
-            var games = await gameRepo.GetAllAsync(query);
-            return Ok(games.Select(g => g.ToDto()));
-        }
-
-        [HttpGet("search")]
-        public async Task<IActionResult> Search([FromQuery] string? title, [FromQuery] string? tag)
-        {
-            var query = new QueryObject
+            
+            // Handle multiple tags from query string
+            if (gameTags != null && gameTags.Any())
             {
-                Title = title,
-                GameTag = tag
+                query.GameTags = gameTags;
+            }
+
+            var (games, totalCount) = await gameRepo.GetAllAsync(query);
+            
+            var paginatedResponse = new PaginationResponse<GameDto>
+            {
+                Items = games.Select(g => g.ToDto()).ToList(),
+                PageNumber = query.PageNumber,
+                PageSize = query.PageSize,
+                TotalCount = totalCount
             };
             
-            var games = await gameRepo.GetAllAsync(query);
-            return Ok(games.Select(g => g.ToDto()));
+            return Ok(paginatedResponse);
         }
 
         [HttpGet("{id}")]
