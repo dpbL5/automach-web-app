@@ -16,6 +16,7 @@ namespace automach_backend.Mappers
                 GameInfo = game.GameInfo,
                 ReleaseDate = game.ReleaseDate,
                 Developer = game.Developer,
+                IsFeatured = game.IsFeatured,
             };
         }
 
@@ -27,7 +28,8 @@ namespace automach_backend.Mappers
                 Price = gameDto.Price,
                 GameInfo = gameDto.GameInfo,
                 ReleaseDate = gameDto.ReleaseDate,
-                Developer = gameDto.Developer
+                Developer = gameDto.Developer,
+                IsFeatured = gameDto.IsFeatured
             };
         }
     }

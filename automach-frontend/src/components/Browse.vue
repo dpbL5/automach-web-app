@@ -9,6 +9,9 @@
             :class="['button', 'button--grouping', { active: activeFilter === 'all' }]" 
             @click="setFilter('all')">All items</button>
           <button 
+            :class="['button', 'button--grouping', { active: activeFilter === 'featured' }]" 
+            @click="setFilter('featured')">⭐ Featured</button>
+          <button 
             :class="['button', 'button--grouping', { active: activeFilter === 'trending' }]" 
             @click="setFilter('trending')">New & Trending</button>
           <button 
@@ -101,12 +104,15 @@
           
           <div v-else v-for="game in games" :key="game.id" class="item-container">
             <router-link :to="`/game/${game.id}`" class="item">
-              <img 
-                class="himg" 
-                :src="getGameImage(game)" 
-                :alt="game.title"
-                @error="handleImageError($event)"
-              />
+              <div class="item-image-wrapper">
+                <img 
+                  class="himg" 
+                  :src="getGameImage(game)" 
+                  :alt="game.title"
+                  @error="handleImageError($event)"
+                />
+                <div v-if="game.isFeatured" class="featured-badge">⭐ Featured</div>
+              </div>
               <h3>{{ game.title }}</h3>
               <div class="tags">
                 <div v-for="(tag, index) in getGameTags(game)" :key="index" class="tag">
@@ -359,7 +365,10 @@ export default {
         }
         
         // Apply specific filters based on activeFilter (same logic as Home component)
-        if (this.activeFilter === 'trending') {
+        if (this.activeFilter === 'featured') {
+          // Featured games: isFeatured = true
+          url += '&isFeatured=true';
+        } else if (this.activeFilter === 'trending') {
           // New & Trending: games added in the last 3 months
           const threeMonthsAgo = new Date();
           threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
@@ -866,8 +875,16 @@ input[type="text"] {
   background-color: var(--Color-Background-Hover);
 }
 
-.item .himg {
+.item-image-wrapper {
   grid-area: img;
+  position: relative;
+  height: 100px;
+  width: 177.8px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.item .himg {
   height: 100px;
   width: 177.8px;
   object-fit: cover;
@@ -875,6 +892,22 @@ input[type="text"] {
   /* Đảm bảo banner game hiển thị đúng tỷ lệ */
   object-position: center;
   background-color: var(--Color-Background-Main);
+}
+
+.featured-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  color: #000;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+  z-index: 2;
 }
 
 .item h3 {

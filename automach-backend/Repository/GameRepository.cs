@@ -111,10 +111,12 @@ namespace automach_backend.Repository
 				return null;
 			}
 
+			game.Title = gameDto.Title;
 			game.Price = gameDto.Price;
 			game.GameInfo = gameDto.GameInfo;
 			game.ReleaseDate = gameDto.ReleaseDate;
 			game.Developer = gameDto.Developer;
+			game.IsFeatured = gameDto.IsFeatured;
 			await context.SaveChangesAsync();
 			return game;
 		}

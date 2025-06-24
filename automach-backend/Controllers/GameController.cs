@@ -92,5 +92,45 @@ namespace automach_backend.Controllers
             }
             return Ok(game.ToDto());
         }
+
+        [HttpGet("stats")]
+        public async Task<IActionResult> GetGameStats()
+        {
+            var (allGames, totalCount) = await gameRepo.GetAllAsync(new QueryObject { PageSize = int.MaxValue });
+            var featuredCount = allGames.Count(g => g.IsFeatured);
+            
+            var stats = new
+            {
+                TotalGames = totalCount,
+                FeaturedGames = featuredCount,
+                NormalGames = totalCount - featuredCount
+            };
+            
+            return Ok(stats);
+        }
+        
+        // Temporary endpoint to test setting featured games - REMOVE IN PRODUCTION
+        [HttpPost("test-featured/{id}")]
+        public async Task<IActionResult> TestSetFeatured([FromRoute] int id, [FromQuery] bool featured = true)
+        {
+            var game = await gameRepo.GetByIdAsync(id);
+            if (game == null)
+            {
+                return NotFound();
+            }
+            
+            var updateDto = new UpdateGameRequestDto
+            {
+                Title = game.Title,
+                GameInfo = game.GameInfo,
+                Price = game.Price,
+                ReleaseDate = game.ReleaseDate,
+                Developer = game.Developer,
+                IsFeatured = featured
+            };
+            
+            var updatedGame = await gameRepo.UpdateAsync(id, updateDto);
+            return Ok(updatedGame?.ToDto());
+        }
     }
 }

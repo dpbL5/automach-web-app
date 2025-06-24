@@ -17,6 +17,10 @@
           <span class="sidebar-icon">⭐</span>
           {{ isAdmin ? 'All User Reviews' : 'My Reviews' }}
         </div>
+        <div v-if="isAdmin" :class="['sidebar-item', { active: tab === 'users' }]" @click="changeTab('users')">
+          <span class="sidebar-icon">👥</span>
+          All Users
+        </div>
       </div>
     </div>
     
@@ -254,6 +258,134 @@
           {{ editReviewMsg }}
         </div>
       </template>
+
+      <template v-else-if="tab === 'users'">
+        <div class="section-header">
+          <h2>System Users</h2>
+          <p>Manage all user accounts in the system</p>
+        </div>
+        
+        <div class="filter-section">
+          <div class="search-box">
+            <input 
+              v-model="userSearch" 
+              placeholder="Search by name, email, or username..." 
+              class="search-input"
+            />
+            <span class="search-icon">🔍</span>
+          </div>
+          <div class="stats-row">
+            <div class="stat-card">
+              <span class="stat-number">{{ allUsers.length }}</span>
+              <span class="stat-label">Total Users</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">{{ adminCount }}</span>
+              <span class="stat-label">Admins</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">{{ userCount }}</span>
+              <span class="stat-label">Regular Users</span>
+            </div>
+            <div class="stat-card revenue-card">
+              <span class="stat-number">${{ totalRevenue.toFixed(2) }}</span>
+              <span class="stat-label">Total Revenue</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="users-container">
+          <div v-if="filteredUsers.length === 0" class="empty-state">
+            <div class="empty-icon">👤</div>
+            <h3>No users found</h3>
+            <p>No users match your search criteria.</p>
+          </div>
+          
+          <div v-else class="users-list">
+            <div v-for="user in filteredUsers" :key="user.id || user.Id" class="user-card">
+              <div class="user-header">
+                <div class="user-avatar">
+                  <span class="avatar-text">{{ getUserInitials(user) }}</span>
+                </div>
+                <div class="user-info">
+                  <div class="user-name">{{ user.name || user.username || 'Unknown User' }}</div>
+                  <div class="user-email">{{ user.email }}</div>
+                  <div class="user-meta">
+                    <span class="user-role" :class="user.role === 'admin' ? 'admin-role' : 'user-role'">
+                      {{ user.role === 'admin' ? 'Administrator' : 'User' }}
+                    </span>
+                    <span class="user-date">Joined: {{ formatDate(user.createdAt) }}</span>
+                  </div>
+                </div>
+                                 <div class="user-actions">
+                   <button 
+                     @click="viewUserDetails(user)" 
+                     class="action-btn view-btn"
+                   >
+                     View Details
+                   </button>
+                 </div>
+              </div>
+              
+                             <div v-if="user.role !== 'admin'" class="user-stats">
+                 <div class="stat-item">
+                   <span class="stat-value">{{ getUserReviewCount(user.id || user.Id) }}</span>
+                   <span class="stat-name">Reviews</span>
+                 </div>
+                 <div class="stat-item">
+                   <span class="stat-value">{{ getUserTransactionCount(user.id || user.Id) }}</span>
+                   <span class="stat-name">Purchases</span>
+                 </div>
+                 <div class="stat-item">
+                   <span class="stat-value">${{ getUserTotalSpent(user.id || user.Id) }}</span>
+                   <span class="stat-name">Total Spent</span>
+                 </div>
+               </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- User Details Modal -->
+        <div v-if="selectedUser" class="form-overlay">
+          <div class="user-details-modal">
+            <div class="modal-header">
+              <h3>User Details</h3>
+              <button @click="selectedUser = null" class="close-btn">✕</button>
+            </div>
+            <div class="modal-content">
+              <div class="user-detail-grid">
+                <div class="detail-item">
+                  <label>Name:</label>
+                  <span>{{ selectedUser.name || 'Not provided' }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Username:</label>
+                  <span>{{ selectedUser.username }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Email:</label>
+                  <span>{{ selectedUser.email }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Phone:</label>
+                  <span>{{ selectedUser.phoneNumber || 'Not provided' }}</span>
+                </div>
+                <div class="detail-item">
+                  <label>Role:</label>
+                  <span class="role-badge" :class="selectedUser.role === 'admin' ? 'admin-role' : 'user-role'">
+                    {{ selectedUser.role === 'admin' ? 'Administrator' : 'User' }}
+                  </span>
+                </div>
+                <div class="detail-item">
+                  <label>Member Since:</label>
+                  <span>{{ formatDate(selectedUser.createdAt) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </template>
     </div>
   </div>
 </template>
@@ -288,6 +420,9 @@ export default {
       editReviewMsgColor: 'red',
       transactionSearch: '',
       reviewSearch: '',
+      userSearch: '',
+      allUsers: [],
+      selectedUser: null,
     };
   },
   computed: {
@@ -325,6 +460,87 @@ export default {
       } else {
         return this.transactions;
       }
+    },
+    filteredUsers() {
+      if (!this.userSearch) return this.allUsers;
+      const searchLower = this.userSearch.toLowerCase();
+      return this.allUsers.filter(user => {
+        const name = (user.name || '').toLowerCase();
+        const email = (user.email || '').toLowerCase();
+        const username = (user.username || '').toLowerCase();
+        return name.includes(searchLower) || email.includes(searchLower) || username.includes(searchLower);
+      });
+    },
+    adminCount() {
+      return this.allUsers.filter(user => user.role === 'admin').length;
+    },
+    userCount() {
+      return this.allUsers.filter(user => user.role === 'user').length;
+    },
+    totalRevenue() {
+      if (!this.allTransactions) return 0;
+      return this.allTransactions.reduce((total, tx) => {
+        return total + (tx.totalPrice || 0);
+      }, 0);
+    },
+    monthlyRevenue() {
+      if (!this.allTransactions) return 0;
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+      return this.allTransactions.reduce((total, tx) => {
+        const txDate = new Date(tx.createdAt);
+        if (txDate.getMonth() === currentMonth && txDate.getFullYear() === currentYear) {
+          return total + (tx.totalPrice || 0);
+        }
+        return total;
+      }, 0);
+    },
+    quarterlyRevenue() {
+      if (!this.allTransactions) return 0;
+      const currentQuarter = this.getCurrentQuarter();
+      const currentYear = new Date().getFullYear();
+      return this.allTransactions.reduce((total, tx) => {
+        const txDate = new Date(tx.createdAt);
+        const txQuarter = Math.floor(txDate.getMonth() / 3) + 1;
+        if (txQuarter === currentQuarter && txDate.getFullYear() === currentYear) {
+          return total + (tx.totalPrice || 0);
+        }
+        return total;
+      }, 0);
+    },
+    totalTransactionCount() {
+      return this.allTransactions ? this.allTransactions.length : 0;
+    },
+    avgTransactionValue() {
+      if (!this.allTransactions || this.allTransactions.length === 0) return 0;
+      return this.totalRevenue / this.allTransactions.length;
+    },
+    totalReviews() {
+      return this.allReviews ? this.allReviews.length : 0;
+    },
+    topGamesByRevenue() {
+      if (!this.allTransactions) return [];
+      
+      const gameStats = {};
+      this.allTransactions.forEach(tx => {
+        tx.gameIds.forEach(gameId => {
+          if (!gameStats[gameId]) {
+            gameStats[gameId] = { gameId, sales: 0, revenue: 0 };
+          }
+          gameStats[gameId].sales++;
+          gameStats[gameId].revenue += tx.totalPrice / tx.gameIds.length; // Approximate revenue per game
+        });
+      });
+      
+      return Object.values(gameStats)
+        .sort((a, b) => b.revenue - a.revenue)
+        .slice(0, 5);
+    },
+    recentTransactions() {
+      if (!this.allTransactions) return [];
+      return [...this.allTransactions]
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 5);
     }
   },
   methods: {
@@ -368,6 +584,7 @@ export default {
             if (!res.ok) throw new Error('Failed to fetch accounts');
             return await res.json();
           });
+          this.allUsers = this.accounts; // Copy to allUsers for user management
         } catch (error) {
           console.error('Error fetching accounts:', error);
         }
@@ -688,6 +905,44 @@ export default {
       if (newTab === 'reviews') {
         await this.fetchReviewsAndGames();
       }
+      
+      // If switching to users tab and admin, ensure we have all users
+      if (newTab === 'users' && this.isAdmin && this.allUsers.length === 0) {
+        await this.fetchAccount();
+      }
+    },
+    getUserInitials(user) {
+      const name = user.name || user.username || 'User';
+      return name.split(' ').map(word => word.charAt(0)).join('').substring(0, 2).toUpperCase();
+    },
+    getUserReviewCount(userId) {
+      return this.allReviews.filter(review => 
+        String(review.accountId) === String(userId)
+      ).length;
+    },
+    getUserTransactionCount(userId) {
+      return this.allTransactions.filter(tx => 
+        String(tx.accountId) === String(userId)
+      ).length;
+    },
+    getUserTotalSpent(userId) {
+      const userTransactions = this.allTransactions.filter(tx => 
+        String(tx.accountId) === String(userId)
+      );
+      const total = userTransactions.reduce((sum, tx) => sum + (tx.totalPrice || 0), 0);
+      return total.toFixed(2);
+    },
+
+    viewUserDetails(user) {
+      this.selectedUser = user;
+    },
+    getCurrentQuarter() {
+      return Math.floor(new Date().getMonth() / 3) + 1;
+    },
+    getCurrentMonthName() {
+      const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+      return months[new Date().getMonth()];
     },
   },
   async mounted() {
@@ -1272,6 +1527,257 @@ export default {
   font-style: italic;
 }
 
+/* Users Management */
+.stats-row {
+  display: flex;
+  gap: var(--Gap-Medium);
+  margin-top: var(--Gap-Medium);
+  margin-bottom: var(--Gap-Large);
+}
+
+.stat-card {
+  background: var(--Color-Background-Highlight);
+  padding: var(--Gap-Medium);
+  border-radius: 8px;
+  box-shadow: var(--ShadowLight);
+  text-align: center;
+  flex: 1;
+}
+
+.stat-number {
+  display: block;
+  color: var(--Color-Primary);
+  font: var(--Text-HeadingMedium);
+  font-weight: 700;
+  margin-bottom: var(--Gap-Small);
+}
+
+.stat-label {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodySmall);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.users-container {
+  max-width: 1000px;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--Gap-Medium);
+}
+
+.user-card {
+  background: var(--Color-Background-Highlight);
+  border-radius: 8px;
+  padding: var(--Gap-Large);
+  box-shadow: var(--ShadowLight);
+  transition: transform 0.2s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-2px);
+}
+
+.user-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--Gap-Medium);
+  margin-bottom: var(--Gap-Medium);
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  background: var(--Color-Primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-avatar .avatar-text {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  color: var(--Color-Text-Main);
+  font: var(--Text-BodyLarge);
+  font-weight: 600;
+  margin-bottom: var(--Gap-Small);
+}
+
+.user-email {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodyMedium);
+  margin-bottom: var(--Gap-Small);
+}
+
+.user-meta {
+  display: flex;
+  gap: var(--Gap-Medium);
+  align-items: center;
+}
+
+.user-role {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font: var(--Text-BodySmall);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-role {
+  background: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  border: 1px solid #f44336;
+}
+
+.user-role.user-role {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  border: 1px solid #4caf50;
+}
+
+.user-date {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodySmall);
+}
+
+.user-actions {
+  display: flex;
+  gap: var(--Gap-Small);
+  flex-shrink: 0;
+}
+
+.view-btn {
+  background: var(--Color-Primary);
+}
+
+.user-stats {
+  display: flex;
+  gap: var(--Gap-Large);
+  padding-top: var(--Gap-Medium);
+  border-top: 1px solid var(--Color-Background-System);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-value {
+  display: block;
+  color: var(--Color-Primary);
+  font: var(--Text-BodyLarge);
+  font-weight: 700;
+  margin-bottom: var(--Gap-XSmall);
+}
+
+.stat-name {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodySmall);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* User Details Modal */
+.user-details-modal {
+  background: var(--Color-Background-Highlight);
+  border-radius: 8px;
+  box-shadow: var(--ShadowHeavy);
+  max-width: 400px;
+  width: 85%;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--Gap-Medium);
+  border-bottom: 1px solid var(--Color-Background-System);
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--Color-Text-Main);
+  font: var(--Text-HeadingMedium);
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--Color-Text-Dim);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: var(--Color-Background-System);
+  color: var(--Color-Text-Main);
+}
+
+.modal-content {
+  padding: var(--Gap-Small);
+}
+
+.user-detail-grid {
+  display: grid;
+  gap: var(--Gap-XSmall);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--Gap-XSmall) var(--Gap-Small);
+  background: var(--Color-Background-System);
+  border-radius: 4px;
+  min-height: 32px;
+}
+
+.detail-item label {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodySmall);
+  font-weight: 600;
+  min-width: 60px;
+}
+
+.detail-item span {
+  color: var(--Color-Text-Main);
+  font: var(--Text-BodySmall);
+  text-align: right;
+  flex: 1;
+}
+
+.role-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font: var(--Text-BodySmall);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .account-detail-container {
@@ -1317,6 +1823,312 @@ export default {
   
   .form-overlay .form-card {
     margin: var(--Gap-Medium);
+  }
+  
+  .stats-row {
+    flex-direction: column;
+  }
+  
+  .user-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .user-actions {
+    justify-content: center;
+    margin-top: var(--Gap-Medium);
+  }
+  
+  .user-stats {
+    justify-content: space-around;
+  }
+  
+  .user-details-modal {
+    margin: var(--Gap-Small);
+    max-height: calc(100vh - 2 * var(--Gap-Small));
+    max-width: none;
+    width: calc(100% - 2 * var(--Gap-Small));
+  }
+  
+  .modal-header {
+    padding: var(--Gap-Small);
+  }
+  
+  .modal-content {
+    padding: var(--Gap-Small);
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    min-height: auto;
+    padding: var(--Gap-XSmall);
+  }
+  
+  .detail-item label {
+    margin-bottom: var(--Gap-XSmall);
+    min-width: auto;
+  }
+  
+  .detail-item span {
+    text-align: left;
+  }
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+  max-width: 1200px;
+}
+
+.dashboard-section {
+  margin-bottom: var(--Gap-XLarge);
+}
+
+.section-title {
+  margin: 0 0 var(--Gap-Large) 0;
+  color: var(--Color-Text-Main);
+  font: var(--Text-HeadingMedium);
+  display: flex;
+  align-items: center;
+  gap: var(--Gap-Small);
+}
+
+/* Revenue Stats */
+.revenue-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--Gap-Large);
+  margin-bottom: var(--Gap-Large);
+}
+
+.revenue-card {
+  background: var(--Color-Background-Highlight);
+  padding: var(--Gap-Large);
+  border-radius: 12px;
+  box-shadow: var(--ShadowLight);
+  border-left: 4px solid var(--Color-Primary);
+  transition: transform 0.2s ease;
+}
+
+.revenue-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ShadowHeavy);
+}
+
+.revenue-header {
+  display: flex;
+  align-items: center;
+  gap: var(--Gap-Small);
+  margin-bottom: var(--Gap-Medium);
+}
+
+.revenue-icon {
+  font-size: 24px;
+}
+
+.revenue-label {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodyMedium);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.revenue-amount {
+  color: var(--Color-Primary);
+  font: var(--Text-HeadingLarge);
+  font-weight: 700;
+  margin-bottom: var(--Gap-Small);
+}
+
+.revenue-subtitle {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodySmall);
+}
+
+.total-revenue {
+  border-left-color: #10b981;
+}
+
+.monthly-revenue {
+  border-left-color: #3b82f6;
+}
+
+.quarterly-revenue {
+  border-left-color: #8b5cf6;
+}
+
+.avg-transaction {
+  border-left-color: #f59e0b;
+}
+
+/* System Stats */
+.system-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--Gap-Medium);
+}
+
+.system-stats .stat-card {
+  background: var(--Color-Background-Highlight);
+  padding: var(--Gap-Large);
+  border-radius: 8px;
+  box-shadow: var(--ShadowLight);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.system-stats .stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ShadowHeavy);
+}
+
+/* Top Games */
+.top-games-list {
+  background: var(--Color-Background-Highlight);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--ShadowLight);
+}
+
+.top-game-item {
+  display: flex;
+  align-items: center;
+  gap: var(--Gap-Medium);
+  padding: var(--Gap-Medium) var(--Gap-Large);
+  border-bottom: 1px solid var(--Color-Background-System);
+  transition: background 0.2s ease;
+}
+
+.top-game-item:last-child {
+  border-bottom: none;
+}
+
+.top-game-item:hover {
+  background: var(--Color-Background-System);
+}
+
+.game-rank {
+  width: 30px;
+  height: 30px;
+  background: var(--Color-Primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.game-info {
+  flex: 1;
+}
+
+.game-title {
+  color: var(--Color-Text-Main);
+  font: var(--Text-BodyMedium);
+  font-weight: 600;
+  margin-bottom: var(--Gap-XSmall);
+}
+
+.game-stats {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodySmall);
+}
+
+.game-revenue {
+  color: var(--Color-Primary);
+  font: var(--Text-BodyLarge);
+  font-weight: 700;
+}
+
+/* Recent Activity */
+.recent-activity {
+  background: var(--Color-Background-Highlight);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--ShadowLight);
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: var(--Gap-Medium);
+  padding: var(--Gap-Medium) var(--Gap-Large);
+  border-bottom: 1px solid var(--Color-Background-System);
+  transition: background 0.2s ease;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-item:hover {
+  background: var(--Color-Background-System);
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--Color-Primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.activity-info {
+  flex: 1;
+}
+
+.activity-text {
+  color: var(--Color-Text-Main);
+  font: var(--Text-BodyMedium);
+  margin-bottom: var(--Gap-XSmall);
+}
+
+.activity-time {
+  color: var(--Color-Text-Dim);
+  font: var(--Text-BodySmall);
+}
+
+.activity-amount {
+  color: var(--Color-Primary);
+  font: var(--Text-BodyMedium);
+  font-weight: 700;
+}
+
+/* Dashboard responsive */
+@media (max-width: 768px) {
+  .revenue-stats {
+    grid-template-columns: 1fr;
+    gap: var(--Gap-Medium);
+  }
+  
+  .system-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--Gap-Small);
+  }
+  
+  .top-game-item,
+  .activity-item {
+    padding: var(--Gap-Small) var(--Gap-Medium);
+    gap: var(--Gap-Small);
+  }
+  
+  .game-rank,
+  .activity-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+  
+  .revenue-amount {
+    font-size: 24px;
   }
 }
 </style> 

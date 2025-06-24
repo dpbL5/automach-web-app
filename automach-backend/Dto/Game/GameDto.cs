@@ -9,6 +9,7 @@ namespace automach_backend.Dto.Game
         public string? GameInfo { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string Developer { get; set; } = string.Empty;
+        public bool IsFeatured { get; set; }
         
     }
 }
